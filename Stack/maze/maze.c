@@ -26,15 +26,11 @@ maze *initRandomMaze(int rows, int cols)
 	M->s_point.row = rand()%(rows - 2) + 1;
 	M->s_point.col = 0;
 
-	M->e_point.row = rand()%(rows - 2) + 1;
-	M->e_point.col = cols - 1;
-
 	M->map = malloc(sizeof(char*) * rows);
 	for (int i = 0 ; i < rows ; i++)
 		M->map[i] = calloc(1, sizeof(char) * cols);
 	
 	M->map[M->s_point.row][M->s_point.col] = 2;
-	M->map[M->e_point.row][M->e_point.col] = 3;
 	return (M);
 }
 
@@ -52,46 +48,50 @@ static void getCandidates(maze *M, DoublyList *L, point curr_pos);
 static void linkAvailablePath(maze *M, point curr_pos);
 void createPath(maze *M)
 {
-	DoublyList		*exploreList;
-	point			currPos;
+	DoublyList		*candidates;
 	DoublyListNode	*currPosNode;
+	point			posFromStart;
+	
+	candidates = createDoublyList();
 
-	exploreList = createDoublyList();
 	M->map[M->s_point.row][M->s_point.col + 1] = 1;
-	currPos.row = M->s_point.row;
-	currPos.col = 1;
-	getCandidates(M, exploreList, currPos);
-
-	displayDoublyList(exploreList);
+	posFromStart.row = M->s_point.row;
+	posFromStart.col = M->s_point.col + 1;
+	getCandidates(M, candidates, posFromStart);
 		
-	while (!isDoublyListEmpty(exploreList))
-	// for (int i = 0 ; i < 30 ; i ++)
+	while (!isDoublyListEmpty(candidates))
 	{
 		srand(time(NULL));
-		int random = rand();
-		int listSize = getDoublyListLength(exploreList);
-		printf("FOR_S\n");
-		printf("INDEX = %d\n", random % (listSize/2 + 1));
-		currPosNode = getDLElement(exploreList, random % (listSize/2 + 1));
-		currPos.col = currPosNode->data.col;
-		currPos.row = currPosNode->data.row;
-		removeDLElement(exploreList, random % (listSize/2 + 1));
-		printMaze(*M);
-		printf("target_pos = (%d,%d)\n", currPos.row , currPos.col);
-		printf("One candidate selected\n");
-		displayDoublyList(exploreList);
-		linkAvailablePath(M, currPos);
-		printf("Path linked\n");
-		printMaze(*M);
-		getCandidates(M, exploreList, currPos);
-		printf("Add new candidates\n");
-		displayDoublyList(exploreList);
-		printf("FOR_N\n\n");
-		// free(currPosNode);
+		int index = rand() % (getDoublyListLength(candidates) / 2 + 1);
+		currPosNode = getDLElement(candidates, index);
+		posFromStart.col = currPosNode->data.col;
+		posFromStart.row = currPosNode->data.row;
+		removeDLElement(candidates, index);
+		linkAvailablePath(M, posFromStart);
+		getCandidates(M, candidates, posFromStart);
 	}
-	M->map[M->e_point.row][M->e_point.col - 1] = 1;
-	displayDoublyList(exploreList);
-	deleteDoublyList(exploreList);
+	deleteDoublyList(candidates);
+
+	while(1)
+	{
+		int r = rand();
+		int exit_row= 1 + (r % (M->total_rows - 2));
+		if (M->total_cols % 2 == 0)
+		{
+			if (M->map[exit_row][M->total_cols - 3])
+			{
+				M->map[exit_row][M->total_cols - 2] = 1;
+				M->map[exit_row][M->total_cols - 1] = 3;
+				break;
+			}
+		}
+		else
+			if (M->map[exit_row][M->total_cols - 2])
+			{
+				M->map[exit_row][M->total_cols - 1] = 3;	
+				break;
+			}
+	}
 }
 
 static void printMazeChar(char map_status);
@@ -105,14 +105,15 @@ void printMaze(maze M)
 			printMazeChar(M.map[r][c]);
 		printf("\n");
 	}
+	printf("\n");
 }
 
 static void printMazeChar(char map_status)
 {
-	if (map_status == 0)		// wall : empty square
-		printf("\u25A2 ");
-	else if (map_status == 1)	// path : filled square
+	if (map_status == 0)		// wall : filed square
 		printf("\u25A0 ");
+	else if (map_status == 1)	// path : empty square
+		printf("\u25A2 ");
 	else if (map_status == 2)	// start_point : circle
 		printf("\u25C9 ");
 	else if (map_status == 3)	// end_point : diamond
@@ -126,8 +127,6 @@ static void printMazeChar(char map_status)
 
 static void getCandidates(maze *M, DoublyList *L, point curr_pos)
 {
-	printf("<getCandidates>\n");
-	srand(time(NULL));
 	int random = rand();
 	int r, c;
 	int direction[4][2] = {{-2, 0}, {0, 2}, {2, 0},{0, -2}};
@@ -135,7 +134,6 @@ static void getCandidates(maze *M, DoublyList *L, point curr_pos)
 
 	for (int i = 0 ; i < 4 ; i++)
 	{
-		printf("%d\n", (random + i) % 4);
 		r = curr_pos.row + direction[(random + i) % 4][0];
 		c = curr_pos.col + direction[(random + i) % 4][1];
 		if (r > 0 && c > 0 && r < M->total_rows - 1 && c < M->total_cols - 1)
@@ -143,7 +141,6 @@ static void getCandidates(maze *M, DoublyList *L, point curr_pos)
 			{
 				candidateNode.data.row = r;
 				candidateNode.data.col = c;
-				printf("cord -> (%d, %d)\n", r, c);
 				addDLElement(L, 0, candidateNode);
 				M->map[r][c] = 4;
 			}
@@ -152,21 +149,17 @@ static void getCandidates(maze *M, DoublyList *L, point curr_pos)
 
 static void linkAvailablePath(maze *M, point curr_pos)
 {
-	printf("<LinkAvaiablePath>\n");
-	srand(time(NULL));
 	int random = rand();
 	int r, c;
 	int direction[4][2] = {{-2, 0}, {0, 2}, {2, 0},{0, -2}};
 
 	for (int i = 0 ; i < 4 ; i++)
 	{
-		printf("%d\n", (random + i) % 4);
 		r = curr_pos.row - direction[(random + i) % 4][0];
 		c = curr_pos.col - direction[(random + i) % 4][1];
 		if (r > 0 && c > 0 && r < M->total_rows - 1 && M->total_cols - 1)
-			if (M->map[r][c] == 1) // 1 : path, 2 : start point, 3 : end point
+			if (M->map[r][c] == 1)
 			{
-				printf("cord -> (%d, %d)\n", r, c);
 				M->map[curr_pos.row][curr_pos.col] = 1;
 				r = curr_pos.row - direction[(random + i) % 4][0] / 2;
 				c = curr_pos.col - direction[(random + i) % 4][1] / 2;

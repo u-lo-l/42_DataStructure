@@ -3,9 +3,8 @@
 #include "doublylist.h"
 int main()
 {
-	maze *map = initRandomMaze(21, 21);
+	maze *map = initRandomMaze(50, 51);
 	createPath(map);
-
-	// printMaze(*map);
+	printMaze(*map);
 	deleteMaze(map);
 }
