@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "maze.h"
+#include "maze_create.h"
 #include "linkedlist.h"
 
 static void createPath(maze *M);

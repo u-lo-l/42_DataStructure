@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-OBJS = linkedlist.o maze.o maze_solver.o
+OBJS = linkedlist.o maze_create.o maze_solver.o
 SRCS = $(OBJS.o=.c)
 
 all : $(TARGET)
