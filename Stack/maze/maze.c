@@ -1,18 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "maze.h"
-#include "doublylist.h"
+#include "linkedlist.h"
 
-point *initPoint(int row, int col)
-{
-	point *P = malloc(sizeof(point));
-	if (!P)
-		return (NULL);
-	P->row = row;
-	P->col = col;
-	return (P);
-}
-
+static void createPath(maze *M);
 maze *initRandomMaze(int rows, int cols)
 {
 	srand(time(NULL));
@@ -31,6 +22,8 @@ maze *initRandomMaze(int rows, int cols)
 		M->map[i] = calloc(1, sizeof(char) * cols);
 	
 	M->map[M->s_point.row][M->s_point.col] = 2;
+
+	createPath(M);
 	return (M);
 }
 
@@ -41,36 +34,39 @@ void deleteMaze(maze *M)
 }
 
 /*
+ * createPath()
  * check four nearby blocks by clockwise from North(N->E->S->W)
  * And append to list if it is proper.
+ * 초기상태는 모든 block들이 다 wall인 상태이고
+ * start_point를 기점으로 길을 뚫어 나간다.
 */
-static void getCandidates(maze *M, DoublyList *L, point curr_pos);
+static void getCandidates(maze *M, LinkedList *L, point curr_pos);
 static void linkAvailablePath(maze *M, point curr_pos);
-void createPath(maze *M)
+static void createPath(maze *M)
 {
-	DoublyList		*candidates;
-	DoublyListNode	*currPosNode;
-	point			posFromStart;
+	LinkedList	*candidates;
+	ListNode	*currPosNode;
+	point		posFromStart;
 	
-	candidates = createDoublyList();
+	candidates = createLinkedList();
 
 	M->map[M->s_point.row][M->s_point.col + 1] = 1;
 	posFromStart.row = M->s_point.row;
 	posFromStart.col = M->s_point.col + 1;
 	getCandidates(M, candidates, posFromStart);
 		
-	while (!isDoublyListEmpty(candidates))
+	while (!isLinkedListEmpty(candidates))
 	{
 		srand(time(NULL));
-		int index = rand() % (getDoublyListLength(candidates) / 2 + 1);
-		currPosNode = getDLElement(candidates, index);
+		int index = rand() % (getLinkedListLength(candidates) / 2 + 1);
+		currPosNode = getLLElement(candidates, index);
 		posFromStart.col = currPosNode->data.col;
 		posFromStart.row = currPosNode->data.row;
-		removeDLElement(candidates, index);
+		removeLLElement(candidates, index);
 		linkAvailablePath(M, posFromStart);
 		getCandidates(M, candidates, posFromStart);
 	}
-	deleteDoublyList(candidates);
+	deleteLinkedList(candidates);
 
 	while(1)
 	{
@@ -108,6 +104,10 @@ void printMaze(maze M)
 	printf("\n");
 }
 
+/*
+ * 정수 데이터로 구성된 미로를 터미널에 출력하기 위한 부분이다.
+ * 2, 3, 4번의 경우 출려과 디버깅을 위해 만들어 놓았다. 굳이 필요 없다.
+*/
 static void printMazeChar(char map_status)
 {
 	if (map_status == 0)		// wall : filed square
@@ -118,19 +118,20 @@ static void printMazeChar(char map_status)
 		printf("\u25C9 ");
 	else if (map_status == 3)	// end_point : diamond
 		printf("\u25C8 ");
-	else if (map_status == 4)	// cadidate : dotted circle
+	else if (map_status == 4)	// cadidate : filled circle
 		printf("\u25CF ");
 	else if (map_status == -1)	// visited
 		printf("\u25A6 ");
 	return ;
 }
 
-static void getCandidates(maze *M, DoublyList *L, point curr_pos)
+/* curr_pos 주변의 block들 중에서 뚫을 수 있는 블럭을 선택한다. */
+static void getCandidates(maze *M, LinkedList *L, point curr_pos)
 {
 	int random = rand();
 	int r, c;
 	int direction[4][2] = {{-2, 0}, {0, 2}, {2, 0},{0, -2}};
-	DoublyListNode candidateNode;
+	ListNode candidateNode;
 
 	for (int i = 0 ; i < 4 ; i++)
 	{
@@ -141,12 +142,13 @@ static void getCandidates(maze *M, DoublyList *L, point curr_pos)
 			{
 				candidateNode.data.row = r;
 				candidateNode.data.col = c;
-				addDLElement(L, 0, candidateNode);
+				addLLElement(L, 0, candidateNode);
 				M->map[r][c] = 4;
 			}
 	}
 }
 
+/* 뚫기로 선택한 curr_pos의 주번의 path와 연결한다. */
 static void linkAvailablePath(maze *M, point curr_pos)
 {
 	int random = rand();

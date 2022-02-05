@@ -1,9 +1,7 @@
 #ifndef MAZE_DATA_H
 # define MAZE_DATA_H
 
-#define NUM_DIRECTIONS 4
-
-enum PosStatus 
+enum mapStatus 
 { 
 	VISITED = -1,
 	WALL = 0,

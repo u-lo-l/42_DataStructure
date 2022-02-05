@@ -1,10 +1,8 @@
-#include "maze_data.h"
 #include "maze.h"
-#include "doublylist.h"
+
 int main()
 {
-	maze *map = initRandomMaze(50, 51);
-	createPath(map);
+	maze *map = initRandomMaze(31, 57);
 	printMaze(*map);
 	deleteMaze(map);
 }
