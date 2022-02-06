@@ -3,4 +3,4 @@
 ### 실행방법 : 
 
 1. make
-2. ./maze [rows] [cols]
+2. ./maze.out [rows] [cols]
