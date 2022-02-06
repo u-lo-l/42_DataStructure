@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "maze_create.h"
 #include "linkedlist.h"
 
@@ -29,6 +27,8 @@ maze *initRandomMaze(int rows, int cols)
 
 void deleteMaze(maze *M)
 {
+	for (int i = 0 ; i < M->total_rows; i++)
+		free(M->map[i]);
 	free(M->map);
 	free(M);
 }
@@ -54,7 +54,7 @@ static void createPath(maze *M)
 	posFromStart.row = M->s_point.row;
 	posFromStart.col = M->s_point.col + 1;
 	getCandidates(M, candidates, posFromStart);
-		
+	
 	while (!isLinkedListEmpty(candidates))
 	{
 		srand(time(NULL));
@@ -71,7 +71,7 @@ static void createPath(maze *M)
 	while(1)
 	{
 		int r = rand();
-		int exit_row= 1 + (r % (M->total_rows - 2));
+		int exit_row = 1 + (r % (M->total_rows - 2));
 		if (M->total_cols % 2 == 0)
 		{
 			if (M->map[exit_row][M->total_cols - 3])
@@ -111,17 +111,21 @@ void printMaze(maze M)
 static void printMazeChar(char map_status)
 {
 	if (map_status == 0)		// wall : filed square
-		printf("\u25A0 ");
+		printf("\033[0;33m\u25A2\033[0m ");
 	else if (map_status == 1)	// path : empty square
-		printf("\u25A2 ");
+		printf("\033[1;30m\u25A0\033[0m ");
 	else if (map_status == 2)	// start_point : circle
-		printf("\u25C9 ");
+		printf("\033[1;36m\u25C9\033[0m ");
 	else if (map_status == 3)	// end_point : diamond
-		printf("\u25C8 ");
+		printf("\033[1;36m\u25C8\033[0m ");
 	else if (map_status == 4)	// cadidate : filled circle
-		printf("\u25CF ");
+		printf("\033[1;33m\u25CF\033[0m ");
 	else if (map_status == -1)	// visited
-		printf("\u25A6 ");
+		printf("\033[1;32m\u25C9\033[0m ");
+	else if (map_status == -2)	// vistied but wrong path;
+	{
+		printf("\033[1;31m\u2297\033[0m ");
+	}
 	return ;
 }
 
@@ -154,7 +158,6 @@ static void linkAvailablePath(maze *M, point curr_pos)
 	int random = rand();
 	int r, c;
 	int direction[4][2] = {{-2, 0}, {0, 2}, {2, 0},{0, -2}};
-
 	for (int i = 0 ; i < 4 ; i++)
 	{
 		r = curr_pos.row - direction[(random + i) % 4][0];

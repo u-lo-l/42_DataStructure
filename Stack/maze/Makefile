@@ -1,11 +1,11 @@
 .SUFFIXES : .c .o
 
-TARGET = maze
+TARGET = maze.out
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-OBJS = linkedlist.o maze_create.o maze_solver.o
+OBJS = linkedlist.o linkedstack.o maze_create.o maze_solver.o
 SRCS = $(OBJS.o=.c)
 
 all : $(TARGET)
@@ -21,7 +21,7 @@ re : fclean all
 .PHONY : all clean fclean re
 
 $(TARGET) : $(OBJS)
-	$(CC) -o $(TARGET) $(OBJS)
+	$(CC) -g -o $(TARGET) $(OBJS)
 
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o $@
