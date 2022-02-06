@@ -4,4 +4,5 @@
 1. make
 2. ./maze [rows] [cols]
 
-![example.png](./})
+![](./example.png})
+
