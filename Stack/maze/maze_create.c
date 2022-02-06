@@ -4,8 +4,6 @@
 static void createPath(maze *M);
 maze *initRandomMaze(int rows, int cols)
 {
-	srand(time(NULL));
-
 	maze *M;
 	M = malloc(sizeof(maze));
 

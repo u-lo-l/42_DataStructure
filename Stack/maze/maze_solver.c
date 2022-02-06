@@ -1,10 +1,9 @@
 #include "maze_create.h"
 #include "linkedstack.h"
-
+#include <unistd.h>
+#define SLEEP 90000
 void checkPath(maze *M, StackNode *pos, LinkedStack *path)
 {
-	srand(time(NULL));
-
 	StackNode *temp_node;
 	int direction[4][2] = {{-1, 0}, {0, 1}, {1, 0},{0, -1}}; // 북->동->남->서 방향으로 탐색하기 위한 벡터(?)
 	int r, c;
@@ -39,8 +38,13 @@ LinkedStack	*solveMaze(maze *M)
 	curr_position = createLSNode(M->s_point.row, M->s_point.col);
 	pushLS(path_stack, *curr_position);
 	printf("START\n");
+	sleep(1);
+	system("clear");
 	while (1)
 	{
+		printMaze(*M);
+		usleep(SLEEP);
+		system("clear");
 		checkPath(M, curr_position, path_stack);
 
 		if (curr_position->data.col == (M->total_cols - 1))
@@ -62,13 +66,39 @@ LinkedStack	*solveMaze(maze *M)
 	return (path_stack);
 }
 
-int main()
+int main(int argc, char **argv)
 {
-	maze *map = initRandomMaze(25, 45);
+	int rows, cols;
+	if (argc == 2)
+	{
+		if (atoi(argv[1]) > 0)
+			rows = cols = atoi(argv[1]);
+		else
+			return (EXIT_FAILURE);
+	}
+	else if (argc == 3)
+	{
+		if (atoi(argv[1]) > 0 && atoi(argv[2]))
+		{
+			rows = atoi(argv[1]);
+			cols = atoi(argv[2]);
+		}
+		else
+			return (EXIT_FAILURE);
+	}
+	else 
+		return (EXIT_FAILURE);
+	system("clear");
+	srand(time(NULL));
+	maze *map = initRandomMaze(rows, cols);
 	LinkedStack *maze_escape_root;
-	printf("!MAP CREATED!\n");
 	printMaze(*map);
+	printf("!MAP CREATED!\n");
+	sleep(2);
+	system("clear");
 	maze_escape_root = solveMaze(map);
+	usleep(SLEEP);
+	system("clear");
 	if(!maze_escape_root)
 		printf("FAILED\n");
 	else
@@ -80,4 +110,5 @@ int main()
 	}
 	deleteLinkedStack(maze_escape_root);
 	deleteMaze(map);
+	return (EXIT_SUCCESS);
 }
