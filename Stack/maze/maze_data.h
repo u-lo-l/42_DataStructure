@@ -3,11 +3,13 @@
 
 enum mapStatus 
 { 
+	VISITED_BUT_BAD = -2,
 	VISITED = -1,
 	WALL = 0,
 	PATH = 1,
 	S_POINT = 2,
-	E_POINT = 3
+	E_POINT = 3,
+	CANDIDATE = 4
 };
 
 typedef struct positionType

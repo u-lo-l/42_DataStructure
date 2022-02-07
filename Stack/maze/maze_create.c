@@ -108,22 +108,20 @@ void printMaze(maze M)
 */
 static void printMazeChar(char map_status)
 {
-	if (map_status == 0)		// wall : filed square
+	if (map_status == WALL )	// wall : filed square
 		printf("\033[0;33m\u25A2\033[0m ");
-	else if (map_status == 1)	// path : empty square
+	else if (map_status == PATH)	// path : empty square
 		printf("\033[1;30m\u25A0\033[0m ");
-	else if (map_status == 2)	// start_point : circle
+	else if (map_status == S_POINT)	// start_point : circle
 		printf("\033[1;36m\u25C9\033[0m ");
-	else if (map_status == 3)	// end_point : diamond
+	else if (map_status == E_POINT)	// end_point : diamond
 		printf("\033[1;36m\u25C8\033[0m ");
-	else if (map_status == 4)	// cadidate : filled circle
+	else if (map_status == CANDIDATE)	// cadidate : filled circle
 		printf("\033[1;33m\u25CF\033[0m ");
-	else if (map_status == -1)	// visited
+	else if (map_status == VISITED)	// visited
 		printf("\033[1;32m\u25C9\033[0m ");
-	else if (map_status == -2)	// vistied but wrong path;
-	{
+	else if (map_status == VISITED_BUT_BAD)	// vistied but wrong path;
 		printf("\033[1;31m\u2297\033[0m ");
-	}
 	return ;
 }
 
