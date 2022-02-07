@@ -2,7 +2,7 @@
 
 TARGET = maze.out
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra
 RM = rm -f
 
 OBJS = linkedlist.o linkedstack.o maze_create.o maze_solver.o
