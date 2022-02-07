@@ -2,7 +2,6 @@
 
 TARGET = maze.out
 CC = gcc
-CFLAGS = -Wall -Wextra
 RM = rm -f
 
 OBJS = linkedlist.o linkedstack.o maze_create.o maze_solver.o
@@ -24,4 +23,4 @@ $(TARGET) : $(OBJS)
 	$(CC) -g -o $(TARGET) $(OBJS)
 
 .c.o :
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) -c $< -o $@
