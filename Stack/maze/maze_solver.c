@@ -1,7 +1,7 @@
 #include "maze_create.h"
 #include "linkedstack.h"
 #include <unistd.h>
-#define SLEEP 90000
+#define SLEEP 60000
 void checkPath(maze *M, StackNode *pos, LinkedStack *path)
 {
 	StackNode *temp_node;
