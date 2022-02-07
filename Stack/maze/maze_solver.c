@@ -9,14 +9,14 @@ void checkPath(maze *M, StackNode *pos, LinkedStack *path)
 	int r, c;
 	int index = rand();
 	
-	M->map[pos->data.row][pos->data.col] = -1; // -1 : visited block
+	M->map[pos->data.row][pos->data.col] = VISITED; // -1 : visited block
 	for (int i = 0 ; i < 4 ; i++)
 	{
 		index = (index + i) % 4;
 		r = pos->data.row + direction[index][0];
 		c = pos->data.col + direction[index][1];
 
-		if (M->map[r][c] > 0) // 1 : 갈 수 있는 길 2: 시작점 3: 출구
+		if (M->map[r][c] == PATH || M->map[r][c] == S_POINT || M->map[r][c] == E_POINT) // 1 : 갈 수 있는 길 2: 시작점 3: 출구
 		{
 			temp_node = createLSNode(r,c);
 			pushLS(path, *temp_node);
@@ -24,7 +24,7 @@ void checkPath(maze *M, StackNode *pos, LinkedStack *path)
 			return ;
 		}
 	}
-	M->map[pos->data.row][pos->data.col] = -2; // -2 : visitied but wrong path
+	M->map[pos->data.row][pos->data.col] = VISITED_BUT_BAD; // -2 : visitied but wrong path
 	temp_node = popLS(path);
 	free(temp_node);
 	return ;
@@ -49,7 +49,7 @@ LinkedStack	*solveMaze(maze *M)
 
 		if (curr_position->data.col == (M->total_cols - 1))
 		{
-			M->map[curr_position->data.row][curr_position->data.col] = -1;
+			M->map[curr_position->data.row][curr_position->data.col] = VISITED;
 			break ;
 		}
 		if (isLinkedStackEmpty(path_stack))

@@ -17,7 +17,7 @@ maze *initRandomMaze(int rows, int cols)
 	for (int i = 0 ; i < rows ; i++)
 		M->map[i] = calloc(1, sizeof(char) * cols);
 	
-	M->map[M->s_point.row][M->s_point.col] = 2;
+	M->map[M->s_point.row][M->s_point.col] = S_POINT;
 
 	createPath(M);
 	return (M);
@@ -48,7 +48,7 @@ static void createPath(maze *M)
 	
 	candidates = createLinkedList();
 
-	M->map[M->s_point.row][M->s_point.col + 1] = 1;
+	M->map[M->s_point.row][M->s_point.col + 1] = PATH;
 	posFromStart.row = M->s_point.row;
 	posFromStart.col = M->s_point.col + 1;
 	getCandidates(M, candidates, posFromStart);
@@ -74,21 +74,21 @@ static void createPath(maze *M)
 		{
 			if (M->map[exit_row][M->total_cols - 3])
 			{
-				M->map[exit_row][M->total_cols - 2] = 1;
-				M->map[exit_row][M->total_cols - 1] = 3;
+				M->map[exit_row][M->total_cols - 2] = PATH;
+				M->map[exit_row][M->total_cols - 1] = E_POINT;
 				break;
 			}
 		}
 		else
 			if (M->map[exit_row][M->total_cols - 2])
 			{
-				M->map[exit_row][M->total_cols - 1] = 3;	
+				M->map[exit_row][M->total_cols - 1] = E_POINT;
 				break;
 			}
 	}
 }
 
-static void printMazeChar(char map_status);
+static void printMazeChar(int map_status);
 void printMaze(maze M)
 {
 	int r,c;
@@ -106,7 +106,7 @@ void printMaze(maze M)
  * 정수 데이터로 구성된 미로를 터미널에 출력하기 위한 부분이다.
  * 2, 3, 4번의 경우 출려과 디버깅을 위해 만들어 놓았다. 굳이 필요 없다.
 */
-static void printMazeChar(char map_status)
+static void printMazeChar(int map_status)
 {
 	if (map_status == WALL )	// wall : filed square
 		printf("\033[0;33m\u25A2\033[0m ");
@@ -143,7 +143,7 @@ static void getCandidates(maze *M, LinkedList *L, point curr_pos)
 				candidateNode.data.row = r;
 				candidateNode.data.col = c;
 				addLLElement(L, 0, candidateNode);
-				M->map[r][c] = 4;
+				M->map[r][c] = CANDIDATE;
 			}
 	}
 }
@@ -159,12 +159,12 @@ static void linkAvailablePath(maze *M, point curr_pos)
 		r = curr_pos.row - direction[(random + i) % 4][0];
 		c = curr_pos.col - direction[(random + i) % 4][1];
 		if (r > 0 && c > 0 && r < M->total_rows - 1 && M->total_cols - 1)
-			if (M->map[r][c] == 1)
+			if (M->map[r][c] == PATH)
 			{
-				M->map[curr_pos.row][curr_pos.col] = 1;
+				M->map[curr_pos.row][curr_pos.col] = PATH;
 				r = curr_pos.row - direction[(random + i) % 4][0] / 2;
 				c = curr_pos.col - direction[(random + i) % 4][1] / 2;
-				M->map[r][c] = 1;
+				M->map[r][c] = PATH;
 				break ;
 			}
 	}

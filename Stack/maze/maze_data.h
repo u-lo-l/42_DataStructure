@@ -1,16 +1,13 @@
 #ifndef MAZE_DATA_H
 # define MAZE_DATA_H
 
-enum mapStatus 
-{ 
-	VISITED_BUT_BAD = -2,
-	VISITED = -1,
-	WALL = 0,
-	PATH = 1,
-	S_POINT = 2,
-	E_POINT = 3,
-	CANDIDATE = 4
-};
+# define VISITED_BUT_BAD	6
+# define VISITED			5
+# define WALL				0
+# define PATH 				1
+# define S_POINT			2
+# define E_POINT			3
+# define CANDIDATE			4
 
 typedef struct positionType
 {
