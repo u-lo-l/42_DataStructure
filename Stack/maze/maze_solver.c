@@ -1,7 +1,9 @@
 #include "maze_create.h"
 #include "linkedstack.h"
 #include <unistd.h>
-#define SLEEP 60000
+
+int g_sleep_time = 60000;
+
 void checkPath(maze *M, StackNode *pos, LinkedStack *path)
 {
 	StackNode *temp_node;
@@ -43,7 +45,7 @@ LinkedStack	*solveMaze(maze *M)
 	while (1)
 	{
 		printMaze(*M);
-		usleep(SLEEP);
+		usleep(g_sleep_time);
 		system("clear");
 		checkPath(M, curr_position, path_stack);
 
@@ -69,25 +71,31 @@ LinkedStack	*solveMaze(maze *M)
 int main(int argc, char **argv)
 {
 	int rows, cols;
-	if (argc == 2)
+	switch (argc)
 	{
-		if (atoi(argv[1]) > 0)
-			rows = cols = atoi(argv[1]);
-		else
+		case 2 :
+			if (atoi(argv[1]) > 0)
+				rows = cols = atoi(argv[1]);
+			else
+				return (EXIT_FAILURE);
+			break;
+		case 4:
+			if (atoi(argv[3]) > 0)
+				g_sleep_time = atoi(argv[3]);
+			else
+				return (EXIT_FAILURE);
+		case 3 :
+			if (atoi(argv[1]) > 0 && atoi(argv[2]))
+			{
+				rows = atoi(argv[1]);
+				cols = atoi(argv[2]);
+			}
+			else
+				return (EXIT_FAILURE);
+			break;
+		default :
 			return (EXIT_FAILURE);
 	}
-	else if (argc == 3)
-	{
-		if (atoi(argv[1]) > 0 && atoi(argv[2]))
-		{
-			rows = atoi(argv[1]);
-			cols = atoi(argv[2]);
-		}
-		else
-			return (EXIT_FAILURE);
-	}
-	else 
-		return (EXIT_FAILURE);
 	system("clear");
 	srand(time(NULL));
 	maze *map = initRandomMaze(rows, cols);
@@ -97,7 +105,7 @@ int main(int argc, char **argv)
 	sleep(2);
 	system("clear");
 	maze_escape_root = solveMaze(map);
-	usleep(SLEEP);
+	usleep(g_sleep_time);
 	system("clear");
 	if(!maze_escape_root)
 		printf("FAILED\n");
