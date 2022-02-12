@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+typedef struct st
+{
+	int a;
+	int b;
+}	strct;
+
+void simplefunc1(strct st)
+{
+	printf("%d, %d\n", st.a, st.b);
+}
+
+void simplefunc2(strct* pst)
+{
+	printf("%d, %d\n", pst->a, pst->b);
+}
+
+int main()
+{
+	strct st1;
+	strct* pst2;
+	
+	int a = 6;
+	int* pa;
+
+
+	pst2 = malloc(sizeof(strct));
+	
+	simplefunc2(pst2);
+	simpliefunc1(pst1);
+}
