@@ -13,15 +13,15 @@ DequeNode *initNode()
 static DequeNode *createNode(SimCustomer data)
 {
 	DequeNode * DQ_node;
-    DQ_node = initNode();
-    if (!DQ_node)
-        return (NULL);
-    DQ_node->customer_data.status = data.status;
-    DQ_node->customer_data.arrivalTime = data.arrivalTime;
-    DQ_node->customer_data.serviceTime = data.serviceTime;
-    DQ_node->customer_data.startTime = data.startTime;
-    DQ_node->customer_data.endTime = data.endTime;
-    return (DQ_node);
+	DQ_node = initNode();
+	if (!DQ_node)
+		return (NULL);
+	DQ_node->customer_data.status = data.status;
+	DQ_node->customer_data.arrivalTime = data.arrivalTime;
+	DQ_node->customer_data.serviceTime = data.serviceTime;
+	DQ_node->customer_data.startTime = data.startTime;
+	DQ_node->customer_data.endTime = data.endTime;
+	return (DQ_node);
 }
 
 LinkedDeque* createLinkedDeque()
