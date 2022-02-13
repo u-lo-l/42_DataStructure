@@ -155,52 +155,16 @@ void display(LinkedDeque *pDeque)
 	DequeNode *temp;
 	temp = pDeque->pFrontNode;
 	int i = 1;
-	printf("########[WAIT LIST]########\n");
 	while(temp)
 	{
-		printf("=====Customer Info_%.2d=====\n", i);
-		printf("STATUS  : %d\n", temp->customer_data.status);
-		printf("ARRIVAL : %d\n", temp->customer_data.arrivalTime);
-		printf("SERVICE : %d\n", temp->customer_data.serviceTime);
-		printf("START   : %d\n", temp->customer_data.startTime);
-		printf("END     : %d\n", temp->customer_data.endTime);
-		printf("=========================\n");
+		printf("-----Customer Info%.2d-----\n", i);
+		printf("STATUS  : %.2d\n", temp->customer_data.status);
+		printf("ARRIVAL : %.2d | ", temp->customer_data.arrivalTime);
+		printf("SERVICE : %.2d\n", temp->customer_data.serviceTime);
+		printf("START   : %.2d | ", temp->customer_data.startTime);
+		printf("END     : %.2d\n", temp->customer_data.endTime);
+		printf("-------------------------\n");
 		temp = temp->pRLink;
 		i++;
 	}
-	printf("##############################\n");
 }
-
-// int main()
-// {
-// 	LinkedDeque *test;
-
-// 	test = createLinkedDeque();
-
-// 	DequeNode node_arr[10];
-
-// 	for (int i = 0 ; i < 6 ; i++)
-// 	{
-// 		node_arr[i].data = 'a' + i;
-// 		insertFrontLD(test, node_arr[i]);
-// 		display(test);
-// 	}
-// 	for (int i = 0 ; i < 6 ; i++)
-// 	{
-// 		node_arr[i].data = 'z' - i;
-// 		insertRearLD(test, node_arr[i]);
-// 		display(test);
-// 	}
-// 	for (int i = 0 ; i < 6 ; i++)
-// 	{
-// 		DequeNode *temp = deleteFrontLD(test);
-// 		free(temp);
-// 		display(test);
-// 	}
-// 	// for (int i = 0 ; i < 6 ; i++)
-// 	// {
-// 	// 	deleteRearLD(test);
-// 	// 	display(test);
-// 	// }
-// 	system("leaks a.out");
-// }

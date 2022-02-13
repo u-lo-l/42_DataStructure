@@ -1,6 +1,8 @@
 #ifndef SIMDEF_H
 # define SIMDEF_H
 
+# define TERMINATE_TIME 20
+
 typedef enum SimStatusType
 {
     arrival,
