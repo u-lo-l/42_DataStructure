@@ -121,8 +121,8 @@ void deleteLinkedDeque(LinkedDeque* pDeque)
 		return ;
 	DequeNode *curr;
 	DequeNode *next;
-	next = pDeque->pFrontNode;
-	while (next)
+	curr = pDeque->pFrontNode;
+	while (curr)
 	{
 		next = curr->pRLink;
 		free(curr);
