@@ -115,7 +115,7 @@ void printArrayQueue(ArrayQueue* pQueue)
     for (int i = pQueue->front ; i < pQueue->rear ; printf("%c->",pQueue->pElement[i++].data));
     printf("\n");
 }
-
+/*
 int main()
 {
     ArrayQueue* Q = createArrayQueue(10);
@@ -149,3 +149,4 @@ int main()
     system("leaks a.out");
     return (0);
 }
+*/
