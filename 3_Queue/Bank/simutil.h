@@ -7,6 +7,8 @@ void insertCustomer(int arrivalTime,
 					LinkedDeque *pQueue);
 
 void processArrival(int currentTime,
+					int terminateTime,
+					int *currWaitTime,
 					LinkedDeque *pArrivalQueue,
 					LinkedDeque *pWaitQueue);
 
@@ -18,7 +20,7 @@ void printSimCustomer(int currentTime, SimCustomer customer);
 
 void printWaitQueueStatus(int currentTime, LinkedDeque *pWaitQueue);
 
-void printReport(LinkedDeque *pWaitQueue, int ServiceUserCount, int TotalWaitTime);
+void printReportprintReport(LinkedDeque *pArrivalQueue, int ServiceUserCount, int TotalWaitTime);
 
 void playSimulation(int customerCount, int terminateTime);
 

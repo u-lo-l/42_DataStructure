@@ -13,6 +13,7 @@ typedef enum SimStatusType
 typedef struct SimCustomerType
 {
     SimStatus status;
+    int is_VIP;
     int arrivalTime;
     int serviceTime;
     int startTime;

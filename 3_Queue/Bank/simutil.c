@@ -23,21 +23,24 @@ void insertCustomer(int arrivalTime, int processTime, LinkedDeque *pQueue)
  * while loop내애서 호출되며, currentTime과 ArrivalQueue의 
  * front고객의 arrivaltime이 같으면 waitQueue에 넣는다.
 */
-void processArrival(int currentTime, LinkedDeque *pArrivalQueue, LinkedDeque *pWaitQueue)
+void processArrival(int currentTime, int terminateTime, int *currWaitTime, LinkedDeque *pArrivalQueue, LinkedDeque *pWaitQueue)
 {
     DequeNode *newCustomerNode;
-
     newCustomerNode = peekFrontLD(pArrivalQueue);
-    if (!newCustomerNode)
-        return ;
+    if (!newCustomerNode)	return ;
     if (currentTime == newCustomerNode->customer_data.arrivalTime)
     {
-		printf("\033[1mNEW CUSTOMER VISITED\033[0m\n");
-        newCustomerNode = deleteFrontLD(pArrivalQueue);
-        if (newCustomerNode == NULL)
-            return ;
-        insertRearLD(pWaitQueue, *newCustomerNode);
-        free(newCustomerNode);
+		if ((*currWaitTime) + currentTime >= terminateTime)
+			printf("\033[0;31mOVER TERMINATE TIME\nVISIT TOMORROW\033[0m\n");
+		else
+		{
+			printf("\033[1mNEW CUSTOMER VISITED\033[0m\n");
+			newCustomerNode = deleteFrontLD(pArrivalQueue);
+			if (newCustomerNode == NULL)	return ;
+			insertRearLD(pWaitQueue, *newCustomerNode);
+			*currWaitTime += newCustomerNode->customer_data.serviceTime;
+			free(newCustomerNode);
+		}
     }
 }
 
@@ -76,7 +79,7 @@ DequeNode* processServiceNodeStart(int currentTime, LinkedDeque *pWaitQueue)
 /*
 *	pServiceUserCount   : 서비스를 받은 고객의 수
 *	pTotalWaitTime      : 은행 업무가 진행되는 동안, 모든 고객의 대기 시간의 합
-				: 0부터 시작해서 방금 들어온 고객의 대기시간(startTime - arrivalTime)을 더해간다.
+						: 0부터 시작해서 방금 들어온 고객의 대기시간(startTime - arrivalTime)을 더해간다.
 *	서비스 노드가 null인지 확인
 * 	1) null이면
 *		Null 반환
@@ -120,16 +123,15 @@ void printSimCustomer(int currentTime, SimCustomer customer)
 
 void printWaitQueueStatus(int currentTime, LinkedDeque *pWaitQueue)
 {
-	// printf("Current Time : [%d]\n", currentTime);
 	display(pWaitQueue);
 }
 
-void printReport(LinkedDeque *pWaitQueue, int ServiceUserCount, int TotalWaitTime)
+void printReport(LinkedDeque *pArrivalQueue, int ServiceUserCount, int TotalWaitTime)
 {
 	printf("     <<BANK ClOSED>>   \n");
 	printf("\033[0;31m");
 	printf("==NOT SERVED CUSTOMERS==\n");
-	display(pWaitQueue);
+	display(pArrivalQueue);
 	printf("========================\n");
 	printf("\033[0;33m");
 	printf("TOTAL SERVICED USER          : %d\n", ServiceUserCount);
@@ -151,6 +153,7 @@ void playSimulation(int customerCount, int terminateTime)
 	int time = 1;
 	int ServiceUserCount = 0;
 	int TotalWaitTime = 0;
+	int currWaitTime = 0;
 
 	arrivalQueue = createLinkedDeque();
 	int arrival_time = rand()%2 + 1;
@@ -166,13 +169,16 @@ void playSimulation(int customerCount, int terminateTime)
 	printf("\033[0m");
 	waitQueue = createLinkedDeque();
 
+
 	while(1)
 	{
-		printf("[[TIME %d]]\n", time);
-		processArrival(time, arrivalQueue, waitQueue);
+		printf("\033[0;36m[[TIME %d]]\033[0m\n", time);
+		if (currWaitTime > 0)	currWaitTime--;
+		printf("<CURRENT WAIT TIME : %d>\n", currWaitTime);
+		processArrival(time, terminateTime, &currWaitTime, arrivalQueue, waitQueue);
 		if (serviceNode != NULL)
 			endNode = processServiceNodeEnd(time, serviceNode, &ServiceUserCount, &TotalWaitTime);
-		if (endNode == NULL) // 
+		if (endNode == NULL)
 		{
 			printf("service node : Empty\n");
 			serviceNode = processServiceNodeStart(time, waitQueue);
@@ -193,7 +199,7 @@ void playSimulation(int customerCount, int terminateTime)
 		}
 		time++;
 	}
-	printReport(waitQueue, ServiceUserCount, TotalWaitTime);
+	printReport(arrivalQueue, ServiceUserCount, TotalWaitTime);
 	deleteLinkedDeque(waitQueue);
 	deleteLinkedDeque(arrivalQueue);
 }
