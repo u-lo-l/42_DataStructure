@@ -29,12 +29,13 @@ void processArrival(int currentTime, int terminateTime, int *currWaitTime, Linke
     newCustomerNode = peekFrontLD(pArrivalQueue);
     if (!newCustomerNode)	return ;
     if (currentTime == newCustomerNode->customer_data.arrivalTime)
-    {
-		if ((*currWaitTime) + currentTime >= terminateTime)
+    {	
+		printf("%d + %d + %d , %d\n",(*currWaitTime), currentTime, newCustomerNode->customer_data.serviceTime, terminateTime);
+		if ((*currWaitTime) + currentTime + newCustomerNode->customer_data.serviceTime >= terminateTime)
 			printf("\033[0;31mOVER TERMINATE TIME\nVISIT TOMORROW\033[0m\n");
 		else
 		{
-			printf("\033[1mNEW CUSTOMER VISITED\033[0m\n");
+			printf("\033[1mNEW CUSTOMER VISITE\033[0m\n");
 			newCustomerNode = deleteFrontLD(pArrivalQueue);
 			if (newCustomerNode == NULL)	return ;
 			insertRearLD(pWaitQueue, *newCustomerNode);
@@ -145,9 +146,9 @@ void playSimulation(int customerCount, int terminateTime)
 	printf("Bank Close Time : %02d\n", terminateTime);
 	printf("Total Customers : %02d\n", customerCount);
 	printf("\033[0m\n");
+	//변수 선언
 	LinkedDeque *arrivalQueue;
 	LinkedDeque *waitQueue;
-	DequeNode *newCustomer = NULL;
 	DequeNode *serviceNode = NULL;
 	DequeNode *endNode = NULL;
 	int time = 1;
@@ -155,8 +156,9 @@ void playSimulation(int customerCount, int terminateTime)
 	int TotalWaitTime = 0;
 	int currWaitTime = 0;
 
+	//Arrival Queue 생성
 	arrivalQueue = createLinkedDeque();
-	int arrival_time = rand()%2 + 1;
+	int arrival_time = rand()%3 + 1; // 1 2 3
 	int process_time = 0;
 	for (int i = 0 ; i < customerCount; i++)
 	{
@@ -167,17 +169,21 @@ void playSimulation(int customerCount, int terminateTime)
 	printf("\033[1;34m (ARRIVAL QUEUE CREATED)\n");
 	display(arrivalQueue);
 	printf("\033[0m");
-	waitQueue = createLinkedDeque();
 
+	waitQueue = createLinkedDeque();
 
 	while(1)
 	{
+		
 		printf("\033[0;36m[[TIME %d]]\033[0m\n", time);
 		if (currWaitTime > 0)	currWaitTime--;
 		printf("<CURRENT WAIT TIME : %d>\n", currWaitTime);
+		//(1) -> 고객이 도착하고, wait queue에 들어갈 수 있으면 이동
 		processArrival(time, terminateTime, &currWaitTime, arrivalQueue, waitQueue);
+		//(2) -> 서비스중이라면 서비스 중인 고객의 노드 반환
 		if (serviceNode != NULL)
 			endNode = processServiceNodeEnd(time, serviceNode, &ServiceUserCount, &TotalWaitTime);
+		//(3) -> 
 		if (endNode == NULL)
 		{
 			printf("service node : Empty\n");
@@ -185,7 +191,9 @@ void playSimulation(int customerCount, int terminateTime)
 		}
 		else
 			printf("service node : Occupied\n");
+		//대기 큐 상태 출력
 		printWaitQueueStatus(time, waitQueue);
+		// 종료 되는지 확인
 		if (time >= terminateTime)
 		{
 			if (serviceNode != NULL)
