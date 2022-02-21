@@ -30,9 +30,11 @@ int addNodeBST(BinTree *bst, BinTreeNode element)
 	if (!bst)
 	{
 		printf("<ERR> Invalid tree\n");
-		return (NULL);
+		return (-1);
 	}
-	addNodeBSTrecursive(bst->pRootNode, element);
+	if (addNodeBSTrecursive(bst->pRootNode, element))
+		return (TRUE);
+	return (FALSE);
 }
 
 static BinTreeNode* getNodeByDataBSTreculsive(BinTreeNode *root, int data)
