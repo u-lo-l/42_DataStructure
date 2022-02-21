@@ -43,7 +43,6 @@ void levelorderTraversal(BinTree *pBinTree, int (*func)(BinTreeNode *))
 	enqueueLQ(queue, tempNode);
 	while (!isLinkedQueueEmpty(queue))
 	{
-		// displayLQ(queue);
 		firstNode = dequeueLQ(queue);
 		if (firstNode->node.pLeftChild)
 		{
