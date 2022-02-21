@@ -7,7 +7,7 @@
 
 int		calcHeight(BinTreeNode *pNode);
 int		calcBalance(BinTreeNode *pNode);
-void	balanceTree(BinTreeNode *pNode);
+BinTreeNode	*balanceTree(BinTreeNode *pNode);
 BinTreeNode *rotate_LL(BinTreeNode *pNode);
 BinTreeNode *rotate_RR(BinTreeNode *pNode);
 BinTreeNode *rotate_LR(BinTreeNode *pNode);
