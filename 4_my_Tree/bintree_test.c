@@ -1,4 +1,4 @@
-#include "BinSearchTree/binsearchtree.h"
+#include "AVLTree/avl_tree.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,7 +18,7 @@ int main()
 	// BinTreeNode	*Node10 = makeBinTreeNode(31);
 
 	BinTreeNode	*Node1 = makeBinTreeNode(12);
-	BinTreeNode	*Node2 = makeBinTreeNode(13);
+	BinTreeNode	*Node2 = makeBinTreeNode(10);
 	BinTreeNode	*Node3 = makeBinTreeNode(14);
 	BinTreeNode	*Node4 = makeBinTreeNode(15);
 	BinTreeNode	*Node5 = makeBinTreeNode(16);
@@ -31,39 +31,68 @@ int main()
 	printf("==============DONE==============\n");
 
 	BinTree *Tree = makeBinTree(*rootNode);
-	addNodeBST(Tree, *Node1);
-	addNodeBST(Tree, *Node2);
-	addNodeBST(Tree, *Node3);
-	addNodeBST(Tree, *Node4);
-	addNodeBST(Tree, *Node5);
-	addNodeBST(Tree, *Node6);
-	addNodeBST(Tree, *Node7);
-	addNodeBST(Tree, *Node8);
-	addNodeBST(Tree, *Node9);
-	addNodeBST(Tree, *Node10);
+	// addNodeBST(Tree, *Node1);
+	// addNodeBST(Tree, *Node2);
+	// addNodeBST(Tree, *Node3);
+	// addNodeBST(Tree, *Node4);
+	// addNodeBST(Tree, *Node5);
+	// addNodeBST(Tree, *Node6);
+	// addNodeBST(Tree, *Node7);
+	// addNodeBST(Tree, *Node8);
+	// addNodeBST(Tree, *Node9);
+	// addNodeBST(Tree, *Node10);
 
+	addNodeAVL(Tree, *Node1);
+	printf("\n");
+	showBinTree(Tree);
+	addNodeAVL(Tree, *Node2);
+	printf("\n");
+	showBinTree(Tree);
+	addNodeAVL(Tree, *Node3);
+	printf("\n");
+	showBinTree(Tree);
+	addNodeAVL(Tree, *Node4);
+	printf("\n");
+	showBinTree(Tree);
+	addNodeAVL(Tree, *Node5);
+	printf("\n");
+	showBinTree(Tree);
+	addNodeAVL(Tree, *Node6);
+	printf("\n");
+	showBinTree(Tree);
+	addNodeAVL(Tree, *Node7);
+	printf("\n");
+	showBinTree(Tree);
+	addNodeAVL(Tree, *Node8);
+	printf("\n");
+	showBinTree(Tree);
+	addNodeAVL(Tree, *Node9);
+	printf("\n");
+	showBinTree(Tree);
+	addNodeAVL(Tree, *Node10);
+	printf("\n");
 	showBinTree(Tree);
 	// printf("=================================\n");
 
-	printf("====DELETE=====\n");
+	// printf("====DELETE=====\n");
 	// printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
 	// deleteNodeBST(Tree, 10);
 	// showBinTree(Tree);
 	// printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
-	deleteNodeBST(Tree, 11);
-	showBinTree(Tree);
-	deleteNodeBST(Tree, 12);
-	showBinTree(Tree);
-	deleteNodeBST(Tree, 13);
-	showBinTree(Tree);
-	deleteNodeBST(Tree, 14);
-	showBinTree(Tree);
-	deleteNodeBST(Tree, 15);
-	showBinTree(Tree);
+	// deleteNodeBST(Tree, 11);
+	// showBinTree(Tree);
+	// deleteNodeBST(Tree, 12);
+	// showBinTree(Tree);
+	// deleteNodeBST(Tree, 13);
+	// showBinTree(Tree);
+	// deleteNodeBST(Tree, 14);
+	// showBinTree(Tree);
+	// deleteNodeBST(Tree, 15);
+	// showBinTree(Tree);
 	// deleteNodeBST(Tree, 4);
 	// showBinTree(Tree);
-	deleteNodeBST(Tree, 49);
-	showBinTree(Tree);
+	// deleteNodeBST(Tree, 49);
+	// showBinTree(Tree);
 	printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
 	printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
 
