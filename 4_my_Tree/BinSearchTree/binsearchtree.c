@@ -3,23 +3,26 @@
 
 BinTreeNode *addNodeBSTrecursive(BinTreeNode *root,
 								BinTreeNode element,
-								void (*func)(BinTreeNode *))
+								BinTreeNode *(*func)(BinTreeNode *))
 {
+	printf("\033[1;33m");
 	printf("Node Add Start\n");
+	printf("\033[0m");
 	printf("Root Node Data   : %d\n", root->data);
 	printf("Adding Node Data : %d\n", element.data);
+	BinTreeNode *temp;
 	if (element.data == root->data)
 	{
-		printf("Duplicated value is not allowed\n");
+		printf("\033[0;31mDuplicated value is not allowed\n\033[0m");
 		return (NULL);
 	}
 	else if (element.data < root->data)
 	{
 		if (root->pLeftChild)
 		{
-			printf("data < key\n");
-			addNodeBSTrecursive(root->pLeftChild, element, func);
-			if (func) func(root);
+			temp = addNodeBSTrecursive(root->pLeftChild, element, func);
+			if (temp)
+				root->pLeftChild = temp;
 		}
 		else
 			insertLeftChildNodeBT(root, element);
@@ -28,23 +31,21 @@ BinTreeNode *addNodeBSTrecursive(BinTreeNode *root,
 	{
 		if (root->pRightChild)
 		{
-			printf("data > key\n");
-			addNodeBSTrecursive(root->pRightChild, element, func);
-			if (func) func(root);
+			temp = addNodeBSTrecursive(root->pRightChild, element, func);
+			if (temp)
+				root->pRightChild = temp;
 		}
 		else
 			insertRightChildNodeBT(root, element);
 	}
+	if (func) 
+		root = func(root);
+	return (root);
 }
 int addNodeBST(BinTree *bst, BinTreeNode element)
 {
 	BinTreeNode *currNode;
 	int newData;
-	if (!bst)
-	{
-		printf("<ERR> Invalid tree\n");
-		return (-1);
-	}
 	if (addNodeBSTrecursive(bst->pRootNode, element, NULL))
 		return (TRUE);
 	return (FALSE);
@@ -64,11 +65,6 @@ static BinTreeNode* getNodeByDataBSTreculsive(BinTreeNode *root, int data)
 BinTreeNode* getNodeByDataBST(BinTree* bst, int data)
 {
 	BinTreeNode *currNode;
-	if (!bst)
-	{
-		printf("<ERR> Invalid tree\n");
-		return (NULL);
-	}
 	return (getNodeByDataBSTreculsive(bst->pRootNode, data));
 }
 
