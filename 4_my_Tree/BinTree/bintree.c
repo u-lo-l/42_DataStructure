@@ -128,8 +128,8 @@ int showBinTreeNode(BinTreeNode *node)
 	// printf("depth : %d\n", node->depth);
 	// printf("level : %d\n", node->level);
 	// printf("degree : %d\n", node->degree);
-	// printf("height : %d\n", node->height);
-	// printf("balance : %d\n", node->balance);
+	printf("height : %d\n", node->height);
+	printf("balance : %d\n", node->balance);
 	printf("---------------\n");
 
 	return (TRUE);
