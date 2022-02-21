@@ -2,8 +2,14 @@
 # define _BIN_SEARCH_TREE_
 # include "../BinTree/bintree.h"
 
-int	addNodeBST(BinTree *binSearchTree, BinTreeNode element);
-BinTreeNode*	getNodeByDataBST(BinTree *binSearchTree, int data);
-int				deleteNodeBST(BinTree *binSearchTree, int data);
+BinTreeNode *addNodeBSTrecursive(BinTreeNode *root,
+									BinTreeNode element,
+									void (*func)(BinTreeNode *));
+int			addNodeBST(BinTree *binSearchTree, BinTreeNode element);
+BinTreeNode	*getNodeByDataBST(BinTree *binSearchTree, int data);
+BinTreeNode *deleteNodeBSTrecursive(BinTree *tree,
+									BinTreeNode *root,
+									int data);
+int			deleteNodeBST(BinTree *binSearchTree, int data);
 
 #endif

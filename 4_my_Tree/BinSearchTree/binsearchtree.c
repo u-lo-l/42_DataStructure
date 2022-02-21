@@ -1,8 +1,13 @@
 #include "binsearchtree.h"
 #include <stdio.h>
 
-static BinTreeNode *addNodeBSTrecursive(BinTreeNode *root, BinTreeNode element)
+BinTreeNode *addNodeBSTrecursive(BinTreeNode *root,
+								BinTreeNode element,
+								void (*func)(BinTreeNode *))
 {
+	printf("Node Add Start\n");
+	printf("Root Node Data   : %d\n", root->data);
+	printf("Adding Node Data : %d\n", element.data);
 	if (element.data == root->data)
 	{
 		printf("Duplicated value is not allowed\n");
@@ -11,14 +16,22 @@ static BinTreeNode *addNodeBSTrecursive(BinTreeNode *root, BinTreeNode element)
 	else if (element.data < root->data)
 	{
 		if (root->pLeftChild)
-			addNodeBSTrecursive(root->pLeftChild, element);
+		{
+			printf("data < key\n");
+			addNodeBSTrecursive(root->pLeftChild, element, func);
+			if (func) func(root);
+		}
 		else
 			insertLeftChildNodeBT(root, element);
 	}
 	else
 	{
 		if (root->pRightChild)
-			addNodeBSTrecursive(root->pRightChild, element);
+		{
+			printf("data > key\n");
+			addNodeBSTrecursive(root->pRightChild, element, func);
+			if (func) func(root);
+		}
 		else
 			insertRightChildNodeBT(root, element);
 	}
@@ -32,7 +45,7 @@ int addNodeBST(BinTree *bst, BinTreeNode element)
 		printf("<ERR> Invalid tree\n");
 		return (-1);
 	}
-	if (addNodeBSTrecursive(bst->pRootNode, element))
+	if (addNodeBSTrecursive(bst->pRootNode, element, NULL))
 		return (TRUE);
 	return (FALSE);
 }
@@ -104,7 +117,9 @@ BinTreeNode* getNodeByDataBST(BinTree* bst, int data)
  * 					루트노드의 데이터를 successor의 데이터로 바꾸고, successor를 지우기 위해
  * 					root->rightchild와 successor의 data를 이용해, root의 오른쪽 서브트리에서 함수를 반복한다.
 */
-static BinTreeNode *deleteNodeBSTrecursive(BinTree *tree, BinTreeNode *root, int data)
+BinTreeNode *deleteNodeBSTrecursive(BinTree *tree,
+									BinTreeNode *root,
+									int data)
 {
 	BinTreeNode *successor;
 
