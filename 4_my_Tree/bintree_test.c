@@ -18,7 +18,7 @@ int main()
 	// BinTreeNode	*Node10 = makeBinTreeNode(31);
 
 	BinTreeNode	*Node1 = makeBinTreeNode(12);
-	BinTreeNode	*Node2 = makeBinTreeNode(10);
+	BinTreeNode	*Node2 = makeBinTreeNode(13);
 	BinTreeNode	*Node3 = makeBinTreeNode(14);
 	BinTreeNode	*Node4 = makeBinTreeNode(15);
 	BinTreeNode	*Node5 = makeBinTreeNode(16);
@@ -43,63 +43,47 @@ int main()
 	// addNodeBST(Tree, *Node10);
 
 	addNodeAVL(Tree, *Node1);
-	printf("\n");
-	showBinTree(Tree);
 	addNodeAVL(Tree, *Node2);
-	printf("\n");
-	showBinTree(Tree);
 	addNodeAVL(Tree, *Node3);
-	printf("\n");
-	showBinTree(Tree);
 	addNodeAVL(Tree, *Node4);
-	printf("\n");
-	showBinTree(Tree);
 	addNodeAVL(Tree, *Node5);
-	printf("\n");
-	showBinTree(Tree);
 	addNodeAVL(Tree, *Node6);
-	printf("\n");
-	showBinTree(Tree);
 	addNodeAVL(Tree, *Node7);
-	printf("\n");
-	showBinTree(Tree);
 	addNodeAVL(Tree, *Node8);
-	printf("\n");
-	showBinTree(Tree);
 	addNodeAVL(Tree, *Node9);
-	printf("\n");
-	showBinTree(Tree);
 	addNodeAVL(Tree, *Node10);
-	printf("\n");
-	showBinTree(Tree);
 	// printf("=================================\n");
 
-	// printf("====DELETE=====\n");
-	// printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
-	// deleteNodeBST(Tree, 10);
-	// showBinTree(Tree);
-	// printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
-	// deleteNodeBST(Tree, 11);
-	// showBinTree(Tree);
-	// deleteNodeBST(Tree, 12);
-	// showBinTree(Tree);
-	// deleteNodeBST(Tree, 13);
-	// showBinTree(Tree);
-	// deleteNodeBST(Tree, 14);
-	// showBinTree(Tree);
-	// deleteNodeBST(Tree, 15);
-	// showBinTree(Tree);
-	// deleteNodeBST(Tree, 4);
-	// showBinTree(Tree);
-	// deleteNodeBST(Tree, 49);
-	// showBinTree(Tree);
-	printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
-	printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
 
-	// deleteNodeBST(Tree, 17);
-	// showBinTree(Tree);
-	// deleteNodeBST(Tree, 17);
-	// showBinTree(Tree);
+	printf("\033[1;33m");
+	printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
+	printf("\033[0;34m");
+	// balanceTree(Tree->pRootNode);
+	
+	printf("\033[0;32m");
+	showBinTree(Tree);
+	printf("\033[0m");
 
-	// deleteBinTree(Tree);
+	printf("\033[0;36m");
+	printf("====DELETE=====\n");
+	deleteNodeAVL(Tree, 14);
+	printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
+	showBinTree(Tree);
+	deleteNodeAVL(Tree, 15);
+	printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
+	showBinTree(Tree);
+	deleteNodeAVL(Tree, 11);
+	showBinTree(Tree);
+	deleteNodeAVL(Tree, 12);
+	showBinTree(Tree);
+	deleteNodeAVL(Tree, 16);
+	showBinTree(Tree);
+	deleteNodeAVL(Tree, 20);
+	showBinTree(Tree);
+	deleteNodeAVL(Tree, 17);
+	showBinTree(Tree);
+	deleteNodeAVL(Tree, 9);
+	showBinTree(Tree);
+
+	deleteBinTree(Tree);
 }
