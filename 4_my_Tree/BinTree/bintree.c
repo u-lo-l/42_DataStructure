@@ -124,10 +124,6 @@ int showBinTreeNode(BinTreeNode *node)
 		return (FALSE);
 	printf("---------------\n");
 	printf("data : %d\n", node->data);
-	// printf("size : %d\n", node->size);
-	// printf("depth : %d\n", node->depth);
-	// printf("level : %d\n", node->level);
-	// printf("degree : %d\n", node->degree);
 	printf("height : %d\n", node->height);
 	printf("balance : %d\n", node->balance);
 	printf("---------------\n");
@@ -141,5 +137,7 @@ void showBinTree(BinTree *tree)
 	int (*shownode)(BinTreeNode *) = showBinTreeNode;
 	printf("SHOW TREE\n");
 	levelorderTraversal(tree, shownode);
+	// postorderTraversal(tree->pRootNode, shownode);
+	// preorderTraversal(tree->pRootNode, shownode);
 	return ;
 }
