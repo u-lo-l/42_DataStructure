@@ -13,14 +13,14 @@ static BinTreeNode *addNodeBSTrecursive(BinTreeNode *root, BinTreeNode element)
 		if (root->pLeftChild)
 			addNodeBSTrecursive(root->pLeftChild, element);
 		else
-			insertLeftChildNodeBT(root->pLeftChild, element);
+			insertLeftChildNodeBT(root, element);
 	}
 	else
 	{
 		if (root->pRightChild)
 			addNodeBSTrecursive(root->pRightChild, element);
 		else
-			insertRightChildNodeBT(root->pRightChild, element);
+			insertRightChildNodeBT(root, element);
 	}
 }
 int addNodeBST(BinTree *bst, BinTreeNode element)
