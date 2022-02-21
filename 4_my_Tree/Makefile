@@ -16,13 +16,16 @@ BST_DIR = ./BinSearchTree/
 BST_FILES = binsearchtree.o
 BST_OBJS = $(addprefix $(BST_DIR), $(BST_FILES))
 
-# AVL_DIR = ./AVLTree
+AVL_DIR = ./AVLTree/
+AVL_FILES = avl_tree.o
+AVL_OBJS = $(addprefix $(AVL_DIR), $(AVL_FILES))
 # RB_DIR = ./RedBlackTree
 
 OBJS = bintree_test.o \
 		$(Q_OBJS) \
 		$(BT_OBJS) \
-		$(BST_OBJS)
+		$(BST_OBJS) \
+		$(AVL_OBJS)
 
 SRCS = $(OBJS.o=.c)
 
