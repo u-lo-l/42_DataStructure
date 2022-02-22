@@ -115,16 +115,17 @@ BinTreeNode* getNodeByDataBST(BinTree* bst, int data)
 */
 BinTreeNode *deleteNodeBSTrecursive(BinTree *tree,
 									BinTreeNode *root,
-									int data)
+									int data,
+									BinTreeNode *(*func)(BinTreeNode *))
 {
 	BinTreeNode *successor;
 
 	if (!root)
 		return (NULL);
 	if (data < root->data)
-		root->pLeftChild = deleteNodeBSTrecursive(tree, root->pLeftChild, data);
+		root->pLeftChild = deleteNodeBSTrecursive(tree, root->pLeftChild, data, func);
 	else if (data > root->data)
-		root->pRightChild = deleteNodeBSTrecursive(tree, root->pRightChild, data);
+		root->pRightChild = deleteNodeBSTrecursive(tree, root->pRightChild, data, func);
 	else
 	{
 		successor = root->pRightChild;
@@ -135,7 +136,7 @@ BinTreeNode *deleteNodeBSTrecursive(BinTree *tree,
 			while (successor->pLeftChild)
 				successor = successor->pLeftChild;
 			root->data = successor->data;
-			root->pRightChild = deleteNodeBSTrecursive(tree, root->pRightChild, successor->data);
+			root->pRightChild = deleteNodeBSTrecursive(tree, root->pRightChild, successor->data, func);
 			return (root);
 		}
 		if (root == tree->pRootNode)
@@ -143,13 +144,14 @@ BinTreeNode *deleteNodeBSTrecursive(BinTree *tree,
 		deleteBinTreeNode(root);
 		return (successor);
 	}
+	if (func) root = func(root);
 	return (root);
 }
 int deleteNodeBST(BinTree *bst, int data)
 {
 	if (bst == NULL)
 		return (-1);
-	if (deleteNodeBSTrecursive(bst, bst->pRootNode, data))
+	if (deleteNodeBSTrecursive(bst, bst->pRootNode, data, NULL))
 		return(TRUE);
 	return (FALSE);
 }

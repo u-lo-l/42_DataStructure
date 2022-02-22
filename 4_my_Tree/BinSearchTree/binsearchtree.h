@@ -9,7 +9,8 @@ int			addNodeBST(BinTree *binSearchTree, BinTreeNode element);
 BinTreeNode	*getNodeByDataBST(BinTree *binSearchTree, int data);
 BinTreeNode *deleteNodeBSTrecursive(BinTree *tree,
 									BinTreeNode *root,
-									int data);
+									int data,
+									BinTreeNode *(*func)(BinTreeNode *));
 int			deleteNodeBST(BinTree *binSearchTree, int data);
 
 #endif
