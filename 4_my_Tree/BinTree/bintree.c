@@ -136,6 +136,7 @@ void showBinTree(BinTree *tree)
 {
 	int (*shownode)(BinTreeNode *) = showBinTreeNode;
 	printf("SHOW TREE\n");
+	printf("level Order\n");
 	levelorderTraversal(tree, shownode);
 	// postorderTraversal(tree->pRootNode, shownode);
 	// preorderTraversal(tree->pRootNode, shownode);
