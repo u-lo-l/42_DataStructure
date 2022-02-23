@@ -9,10 +9,10 @@ int main()
 {
 	MaxHeap	*heap;
 
-	heap = createMaxHeap(4);
+	heap = createMaxHeap(5);
 	if (!heap)
 		return 1;
-	for (int i = 1; i < 10; i++)
+	for (int i = 1; i < 28; i++)
 		insertMaxHeapData(heap, i);
 	showHeapTree(heap);
 	deleteMaxHeap(&heap);
