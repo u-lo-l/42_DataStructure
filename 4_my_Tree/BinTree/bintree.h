@@ -6,6 +6,7 @@ typedef struct BinTreeNodeType
 	char data;
 	int height;
 	int balance;
+	int index;
 	struct BinTreeNodeType* pLeftChild;
 	struct BinTreeNodeType* pRightChild;
 } BinTreeNode;
