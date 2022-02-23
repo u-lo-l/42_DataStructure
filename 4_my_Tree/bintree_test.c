@@ -2,21 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int bintreeTest(void);
+int binsearchtreeTest(void);
+int avltreeTest(void);
+
 int main()
 {
 	printf("===Tree and Nodes Initialize===\n");
 	BinTreeNode	*rootNode = makeBinTreeNode(11);
-	// BinTreeNode	*Node1 = makeBinTreeNode(6);
-	// BinTreeNode	*Node2 = makeBinTreeNode(8);
-	// BinTreeNode	*Node3 = makeBinTreeNode(19);
-	// BinTreeNode	*Node4 = makeBinTreeNode(4);
-	// BinTreeNode	*Node5 = makeBinTreeNode(10);
-	// BinTreeNode	*Node6 = makeBinTreeNode(5);
-	// BinTreeNode	*Node7 = makeBinTreeNode(17);
-	// BinTreeNode	*Node8 = makeBinTreeNode(43);
-	// BinTreeNode	*Node9 = makeBinTreeNode(49);
-	// BinTreeNode	*Node10 = makeBinTreeNode(31);
-
 	BinTreeNode	*Node1 = makeBinTreeNode(12);
 	BinTreeNode	*Node2 = makeBinTreeNode(13);
 	BinTreeNode	*Node3 = makeBinTreeNode(14);
@@ -29,19 +22,7 @@ int main()
 	BinTreeNode	*Node10 = makeBinTreeNode(21);
 
 	printf("==============DONE==============\n");
-
 	BinTree *Tree = makeBinTree(*rootNode);
-	// addNodeBST(Tree, *Node1);
-	// addNodeBST(Tree, *Node2);
-	// addNodeBST(Tree, *Node3);
-	// addNodeBST(Tree, *Node4);
-	// addNodeBST(Tree, *Node5);
-	// addNodeBST(Tree, *Node6);
-	// addNodeBST(Tree, *Node7);
-	// addNodeBST(Tree, *Node8);
-	// addNodeBST(Tree, *Node9);
-	// addNodeBST(Tree, *Node10);
-
 	addNodeAVL(Tree, *Node1);
 	addNodeAVL(Tree, *Node2);
 	addNodeAVL(Tree, *Node3);
@@ -52,9 +33,6 @@ int main()
 	addNodeAVL(Tree, *Node8);
 	addNodeAVL(Tree, *Node9);
 	addNodeAVL(Tree, *Node10);
-	// printf("=================================\n");
-
-
 	printf("\033[1;33m");
 	printf("ROOT : %d\n", getRootNodeBT(Tree)->data);
 	printf("\033[0;34m");
@@ -86,4 +64,9 @@ int main()
 	showBinTree(Tree);
 
 	deleteBinTree(Tree);
+}
+
+int simpleBT(void)
+{
+	
 }
