@@ -21,7 +21,7 @@ AVL_FILES = avl_tree.o
 AVL_OBJS = $(addprefix $(AVL_DIR), $(AVL_FILES))
 # RB_DIR = ./RedBlackTree
 
-OBJS = bintree_test.o \
+OBJS = BinaryTreeTest.o \
 		$(Q_OBJS) \
 		$(BT_OBJS) \
 		$(BST_OBJS) \
