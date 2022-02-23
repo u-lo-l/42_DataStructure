@@ -5,11 +5,6 @@ BinTreeNode *addNodeBSTrecursive(BinTreeNode *root,
 								BinTreeNode element,
 								BinTreeNode *(*func)(BinTreeNode *))
 {
-	printf("\033[1;33m");
-	printf("Node Add Start\n");
-	printf("\033[0m");
-	printf("Root Node Data   : %d\n", root->data);
-	printf("Adding Node Data : %d\n", element.data);
 	BinTreeNode *temp;
 	if (element.data == root->data)
 	{
@@ -121,7 +116,10 @@ BinTreeNode *deleteNodeBSTrecursive(BinTree *tree,
 	BinTreeNode *successor;
 
 	if (!root)
+	{
+		printf("\033[0;31mThere is no matching Node\n\033[0m");
 		return (NULL);
+	}
 	if (data < root->data)
 		root->pLeftChild = deleteNodeBSTrecursive(tree, root->pLeftChild, data, func);
 	else if (data > root->data)
@@ -151,7 +149,5 @@ int deleteNodeBST(BinTree *bst, int data)
 {
 	if (bst == NULL)
 		return (-1);
-	if (deleteNodeBSTrecursive(bst, bst->pRootNode, data, NULL))
-		return(TRUE);
-	return (FALSE);
+	bst->pRootNode = deleteNodeBSTrecursive(bst, bst->pRootNode, data, NULL);
 }
