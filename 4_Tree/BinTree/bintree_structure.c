@@ -89,10 +89,11 @@ static void printDataAndBlank(QueueNode *qNode,int depth, int currI)
 {
 	int level, totalField, blanksize;
 
-	char dataStr[3];
+	char dataStr[4];
 	dataStr[0] = '[';
 	dataStr[1] = ' ';
 	dataStr[2] = ']';
+	dataStr[3] = 0;
 	totalField = power(2, depth - 1) * (3 + 1); //3 : field for data, 1 : field for smallest blank;
 	level = getLevelByIndex(currI);
 	blanksize = totalField / power(2, level - 1) - 3;
