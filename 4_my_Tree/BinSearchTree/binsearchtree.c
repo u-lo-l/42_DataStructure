@@ -7,8 +7,10 @@ BinTreeNode *addNodeBSTrecursive(BinTreeNode *root,
 {
 	BinTreeNode *temp;
 	if (element.data == root->data)
-	{
-		printf("\033[0;31mDuplicated value is not allowed\n\033[0m");
+	{	
+		printf("\033[0;31m");
+		printf("Duplicated value is not allowed : %c\n", root->data);
+		printf("\033[0m");
 		return (root);
 	}
 	else if (element.data < root->data)

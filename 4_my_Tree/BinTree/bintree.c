@@ -122,7 +122,7 @@ int showBinTreeNode(BinTreeNode *node)
 {
 	if (node == NULL)
 		return (FALSE);
-	printf("[%d] ", node->data);
+	printf("[%c] ", node->data);
 	return (TRUE);
 }
 
