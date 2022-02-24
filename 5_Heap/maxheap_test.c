@@ -57,11 +57,9 @@ void showHeapTree(MaxHeap *H)
 	for (int i = 1 ; i < total ; i++)
 	{
 		if (i == power(2, level))
-			printf("level%2d ", level++ + 1);
+			printf("\n\n\nlevel%2d ", level++ + 1);
 		blanksize = totalfield / power(2, level - 1) - field;
 		printdata(H->pRootNode[i].data, blanksize);
-		if (i + 1 == power(2, level))
-			printf("\n\n");
 	}
 	
 	printf("\n");
