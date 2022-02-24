@@ -7,12 +7,14 @@ typedef struct BinTreeNodeType
 	int height;
 	int balance;
 	int index;
+	int level;
 	struct BinTreeNodeType* pLeftChild;
 	struct BinTreeNodeType* pRightChild;
 } BinTreeNode;
 
 typedef struct BinTreeType
 {
+	int depth;
 	struct BinTreeNodeType* pRootNode;
 } BinTree;
 
@@ -26,8 +28,11 @@ BinTreeNode* getLeftChildNodeBT(BinTreeNode* pNode);
 BinTreeNode* getRightChildNodeBT(BinTreeNode* pNode);
 void deleteBinTree(BinTree* pBinTree);
 int isLeafNode(BinTreeNode *pNode);
-int showBinTreeNode(BinTreeNode *node);
-void showBinTree(BinTree *tree);
+int showBinTreeNode(BinTreeNode *pNode);
+void showBinTree(BinTree *pBinTree);
+
+void setTreeInfo(BinTree *pBinTree);
+void showBinTreeStructure(BinTree *pBinTree);
 #endif
 
 #ifndef _COMMON_TREE_DEF_

@@ -9,7 +9,7 @@ Q_FILES = linkedqueue.o
 Q_OBJS = $(addprefix $(Q_DIR), $(Q_FILES))
 
 BT_DIR = ./BinTree/
-BT_FILES = bintree.o bintree_traversal.o
+BT_FILES = bintree.o bintree_traversal.o bintree_structure.o
 BT_OBJS  = $(addprefix $(BT_DIR), $(BT_FILES))
 
 BST_DIR = ./BinSearchTree/

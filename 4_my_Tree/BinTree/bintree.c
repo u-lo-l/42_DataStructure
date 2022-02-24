@@ -41,6 +41,7 @@ BinTree* makeBinTree(BinTreeNode rootNode)
 		free(newTree);
 		return (NULL);
 	}
+	newTree->depth = 0;
 	return (newTree);
 }
 /* 이진 트리의 루트노드의 포인터 반환*/
@@ -123,6 +124,7 @@ int showBinTreeNode(BinTreeNode *node)
 	if (node == NULL)
 		return (FALSE);
 	printf("[%c] ", node->data);
+	printf("\b<%d/%d> ",node->index,node->level);
 	return (TRUE);
 }
 
@@ -130,6 +132,7 @@ int showBinTreeNode(BinTreeNode *node)
 void showBinTree(BinTree *tree)
 {
 	printf("level Order\n");
+	printf("total depth : %d\n", tree->depth);
 	levelorderTraversal(tree, showBinTreeNode);
 	// postorderTraversal(tree->pRootNode, shownode);
 	// preorderTraversal(tree->pRootNode, shownode);
