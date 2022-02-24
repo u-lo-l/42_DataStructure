@@ -89,12 +89,15 @@ BinTreeNode *rotate_RL(BinTreeNode *pNode)
 
 int		addNodeAVL(BinTree *bst, BinTreeNode element)
 {
+	BinTreeNode *temp;
 	if (!bst)
 	{
 		printf("\033[0;31m<ERR> Invalid tree\n\033[0m");
 		return (-1);
 	}
-	bst->pRootNode = addNodeBSTrecursive(bst->pRootNode, element, balanceTree);
+	temp = addNodeBSTrecursive(bst->pRootNode, element, balanceTree);
+	if (temp)
+		bst->pRootNode = temp;
 }
 
 int		deleteNodeAVL(BinTree *bst, int data)

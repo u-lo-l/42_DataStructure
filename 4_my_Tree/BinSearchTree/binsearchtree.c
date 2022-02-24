@@ -9,7 +9,7 @@ BinTreeNode *addNodeBSTrecursive(BinTreeNode *root,
 	if (element.data == root->data)
 	{
 		printf("\033[0;31mDuplicated value is not allowed\n\033[0m");
-		return (NULL);
+		return (root);
 	}
 	else if (element.data < root->data)
 	{
@@ -39,11 +39,15 @@ BinTreeNode *addNodeBSTrecursive(BinTreeNode *root,
 }
 int addNodeBST(BinTree *bst, BinTreeNode element)
 {
-	BinTreeNode *currNode;
-	int newData;
-	if (addNodeBSTrecursive(bst->pRootNode, element, NULL))
-		return (TRUE);
-	return (FALSE);
+	BinTreeNode *temp;
+	if (!bst)
+	{
+		printf("\033[0;31m<ERR> Invalid tree\n\033[0m");
+		return (-1);
+	}
+	temp = addNodeBSTrecursive(bst->pRootNode, element, NULL);
+	if (temp)
+		bst->pRootNode = temp;
 }
 
 static BinTreeNode* getNodeByDataBSTreculsive(BinTreeNode *root, int data)

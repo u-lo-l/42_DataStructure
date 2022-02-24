@@ -16,14 +16,16 @@ int main()
 {
 	srand(time(NULL));
 	
-	int data = rand()%10 + 5;
+	char data = rand()%3 + 'J';
 	BinTreeNode *rootNode = makeBinTreeNode(data);
 	BinTreeNode *Nodes[8];
+	data -= 10;
 	for (int i = 0 ; i < 8 ; i++)
 	{
 		data += rand()%4 + 1;
 		Nodes[i] = makeBinTreeNode(data);
 	}
+
 
 	printf("=======BT======\n");
 	test_BinTree(rootNode, Nodes);
