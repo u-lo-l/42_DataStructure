@@ -98,6 +98,7 @@ int		addNodeAVL(BinTree *bst, BinTreeNode element)
 	temp = addNodeBSTrecursive(bst->pRootNode, element, balanceTree);
 	if (temp)
 		bst->pRootNode = temp;
+	return (1);
 }
 
 int		deleteNodeAVL(BinTree *bst, int data)
@@ -109,4 +110,5 @@ int		deleteNodeAVL(BinTree *bst, int data)
 	}
 	printf("\033[0;31mtarget data : %d\n\033[0m", data);
 	bst->pRootNode = deleteNodeBSTrecursive(bst, bst->pRootNode, data, balanceTree);
+	return (1);
 }

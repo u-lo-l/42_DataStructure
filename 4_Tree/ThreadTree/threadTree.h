@@ -1,5 +1,5 @@
 #ifndef _THREAD_TREE_
-# define _TREAD_TREE_
+# define _THREAD_TREE_
 
 typedef struct threadNodeType
 {

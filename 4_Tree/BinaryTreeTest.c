@@ -25,13 +25,14 @@ int main()
 		data += rand()%4 + 1;
 		Nodes[i] = makeBinTreeNode(data);
 	}
-
-
-	printf("\n===================BT===================\n");
+	printf("================CREATED DATA=================\n");
+	for (int i = 0 ; i < 9 ; i++)
+		printf(" [%c] ", Nodes[i]->data);
+	printf("\n=====================BT=====================\n");
 	test_BinTree(rootNode, Nodes);
-	printf("\n===================BST==================\n");
+	printf("\n=====================BST====================\n");
 	test_BinSearchTree(rootNode, Nodes);
-	printf("\n===================AVL==================\n");
+	printf("\n=====================AVL====================\n");
 	test_AVLTree(rootNode, Nodes);
 
 

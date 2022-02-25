@@ -50,6 +50,7 @@ int addNodeBST(BinTree *bst, BinTreeNode element)
 	temp = addNodeBSTrecursive(bst->pRootNode, element, NULL);
 	if (temp)
 		bst->pRootNode = temp;
+	return (1);
 }
 
 static BinTreeNode* getNodeByDataBSTreculsive(BinTreeNode *root, int data)
@@ -156,4 +157,5 @@ int deleteNodeBST(BinTree *bst, int data)
 	if (bst == NULL)
 		return (-1);
 	bst->pRootNode = deleteNodeBSTrecursive(bst, bst->pRootNode, data, NULL);
+	return (1);
 }

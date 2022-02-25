@@ -33,19 +33,19 @@ int deleteRBTreeNode(RBTreeNode *pNode)
 RBTree *makeRBTree(void)
 {
 	RBTree *newTree;
-	RBTreeNode *nil;
+	RBTreeNode *Nil;
 
 	newTree = malloc(sizeof(RBTree));
 	if (!newTree)
 		return (NULL);
-	nil = makeRBTreeNode(' ');
-	if (!nil)
+	Nil = makeRBTreeNode(' ');
+	if (!Nil)
 	{
 		free(newTree);
 		newTree = NULL;
 		return (NULL);
 	}
-	newTree->nilNode = nil;
+	newTree->nilNode = Nil;
 	newTree->nilNode->color = black;
 	newTree->pRootNode = NULL;
 	return (newTree);
@@ -128,106 +128,8 @@ void leftRotation(RBTree *pTree, RBTreeNode *pNode)
 	pNode->pParent = temp;
 }
 
-/*
- * 레드블랙 트리에 노드를 추가할 때 발생하는 경우의 수는 4가지이다.
- * 그 중 parentnNode가 red일 때 restruct가 필요하다.
- * 여기서 전달 받은 
-*/
-RBTreeNode *addRestructTree(RBTree *pTree, RBTreeNode *pNode)
-{
-	RBTreeNode *uncle;
-	RBTreeNode *temp;
-	if (!pTree || !pNode)
-		return (NULL);
-	if (pNode->pParent->color == black)
-		return (NULL);
-	while (pNode->pParent->color == red)
-	{
-		if (pNode->pParent == pNode->pParent->pParent->pLeftChild)
-		{
-			uncle = pNode->pParent->pParent->pRightChild;
-			if (uncle->color == red)
-			{
-				pNode->pParent->color = uncle->color = black;
-				pNode->pParent->pParent->color = red;
-				pNode = pNode->pParent->pParent;
-			}
-			else
-			{
-				if(pNode == pNode->pParent->pRightChild)
-					leftRotation(pTree, pNode->pParent);
-				rightRotation(pTree, pNode->pParent);
-				pNode->color = black;
-				pNode->pRightChild->color = red;
-			}
-		}
-		else
-		{
-			uncle = pNode->pParent->pParent->pLeftChild;
-			if (uncle->color == red)
-			{
-				pNode->pParent->color = uncle->color = black;
-				pNode->pParent->pParent->color = red;
-				pNode = pNode->pParent->pParent;
-			}
-			else
-			{
-				if (pNode == pNode->pParent->pLeftChild)
-					rightRotation(pTree, pNode->pParent);
-				else
-					pNode = pNode->pParent;
-				pNode->color = black;
-				pNode->pParent->color = red;
-				leftRotation(pTree, pNode->pParent);
-			}
-		}
-	}
-	pTree->pRootNode->color = black;
-	return (pNode);
-}
-
-static void addNodeRBrecursive(RBTree *pTree,
-								RBTreeNode *pNode,
-								int key)
-{
-	RBTreeNode *temp;
-	RBTreeNode *newNode;
-	newNode = makeRBTreeNode(key);
-	newNode->pParent = pNode;
-	newNode->pLeftChild = pTree->nilNode;
-	newNode->pRightChild = pTree->nilNode;
-	if (key == pNode->data)
-	{
-		printf("\033[0;31m");
-		printf("Duplicated value is not allowed : %c\n", pNode->data);
-		printf("\033[0m");
-		deleteRBTreeNode(newNode);
-		return ;
-	}
-	else if (key < pNode->data)
-	{
-		if (pNode->pLeftChild == pTree->nilNode)
-		{
-			pNode->pLeftChild = newNode;
-			addRestructTree(pTree, pNode->pLeftChild);
-		}
-		else
-		{
-			addNodeRBrecursive(pTree, pNode->pLeftChild, key);
-		}
-	}
-	else
-	{
-		if (pNode->pRightChild == pTree->nilNode)
-		{
-			pNode->pRightChild = newNode;
-			addRestructTree(pTree, pNode->pRightChild);
-		}
-		else
-			addNodeRBrecursive(pTree, pNode->pRightChild, key);
-	}
-}
-
+static RBTreeNode *addRestructTree(RBTree *pTree, RBTreeNode *pNode);
+static void addNodeRBrecursive(RBTree *pTree, RBTreeNode *pNode, int key);
 int addNodeRB(RBTree *pTree, RBTreeNode element)
 {
 	RBTreeNode *newNode;
@@ -247,4 +149,141 @@ int addNodeRB(RBTree *pTree, RBTreeNode element)
 		addNodeRBrecursive(pTree, pTree->pRootNode, element.data);
 	pTree->pRootNode->pParent = pTree->nilNode;
 	return (1);
+}
+
+/*
+ * 레드블랙 트리에 노드를 추가할 때 발생하는 경우의 수는 4가지이다.
+ * 그 중 parentnNode가 red일 때 restruct가 필요하다.
+ * 여기서 전달 받은 
+*/
+static RBTreeNode *addRestructTree(RBTree *T, RBTreeNode *N)
+{
+	RBTreeNode *uncle;
+	RBTreeNode *temp;
+	if (!T || !N)
+		return (NULL);
+	if (N->pParent->color == black)
+		return (NULL);
+	while (N->pParent->color == red)
+	{
+		if (N->pParent == N->pParent->pParent->pLeftChild)
+		{
+			uncle = N->pParent->pParent->pRightChild;
+			if (uncle->color == red)
+			{
+				N->pParent->color = uncle->color = black;
+				N->pParent->pParent->color = red;
+				N = N->pParent->pParent;
+			}
+			else
+			{
+				if(N == N->pParent->pRightChild)
+					leftRotation(T, N->pParent);
+				rightRotation(T, N->pParent);
+				N->color = black;
+				N->pRightChild->color = red;
+			}
+		}
+		else
+		{
+			uncle = N->pParent->pParent->pLeftChild;
+			if (uncle->color == red)
+			{
+				N->pParent->color = uncle->color = black;
+				N->pParent->pParent->color = red;
+				N = N->pParent->pParent;
+			}
+			else
+			{
+				if (N == N->pParent->pLeftChild)
+					rightRotation(T, N->pParent);
+				else
+					N = N->pParent;
+				N->color = black;
+				N->pParent->color = red;
+				leftRotation(T, N->pParent);
+			}
+		}
+	}
+	T->pRootNode->color = black;
+	return (N);
+}
+
+static void addNodeRBrecursive(RBTree *T, RBTreeNode *N, int key)
+{
+	RBTreeNode *temp;
+	RBTreeNode *newNode;
+	newNode = makeRBTreeNode(key);
+	newNode->pParent = N;
+	newNode->pLeftChild = T->nilNode;
+	newNode->pRightChild = T->nilNode;
+	if (key == N->data)
+	{
+		printf("\033[0;31m");
+		printf("Duplicated value is not allowed : %c\n", N->data);
+		printf("\033[0m");
+		deleteRBTreeNode(newNode);
+		return ;
+	}
+	else if (key < N->data)
+	{
+		if (N->pLeftChild == T->nilNode)
+		{
+			N->pLeftChild = newNode;
+			addRestructTree(T, N->pLeftChild);
+		}
+		else
+		{
+			addNodeRBrecursive(T, N->pLeftChild, key);
+		}
+	}
+	else
+	{
+		if (N->pRightChild == T->nilNode)
+		{
+			N->pRightChild = newNode;
+			addRestructTree(T, N->pRightChild);
+		}
+		else
+			addNodeRBrecursive(T, N->pRightChild, key);
+	}
+}
+
+static int delRestructTree(RBTree* pTree, RBTreeNode *pNode);
+static int delNodeRBRecursive(RBTree* pTree, RBTreeNode *pNode, char key);
+int deleteNodeRB(RBTree *pTree, RBTreeNode element)
+{
+	if (!pTree)
+		return (-1);
+	printf("DEL %c from tree\n", key);
+	
+	delNodeRBRecursive(pTree, pNode, key);
+}
+static int delNodeRBRecursive(RBTree *T, RBTreeNode *N, char key)
+{
+	int result;
+	if (N == T->nilNode)
+	{
+		printf("Reach to nilnode. fail to find key:[%c]\n", key);
+		return (FALSE);
+	}
+	if (key < N->data)
+	{
+		result = delNodeRBRecursive(T, N->pLeftChild, key);
+		if (result == -1) return (-1);
+	}
+	else if (key > N->data)
+	{
+		result = delNodeRBRecursive(T, N->pRightChild, key);
+		if (result == FALSE) return (FALSE);
+	}
+	else
+		delRestructTree(T, N);
+	return (TRUE);
+}
+
+static int delRestructTree(RBTree *T, RBTreeNode *N)
+{
+	if (!T || !N)
+		return (FALSE);
 }

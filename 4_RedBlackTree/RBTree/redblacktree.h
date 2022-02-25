@@ -27,6 +27,7 @@ void deleteRBTree(RBTree **ppTree); //by postorder
 void rightRotation(RBTree *pTree, RBTreeNode *pNode);
 void leftRotation(RBTree *pTree, RBTreeNode *pNode);
 int addNodeRB(RBTree *pTree, RBTreeNode element);
+int deleteNodeRB(RBTree *pTree, RBTreeNode element);
 
 /*Red Black Tree Traversal*/
 void preorderTraversal(RBTree *pTree, RBTreeNode *pNode, int (*func)(RBTreeNode *));
