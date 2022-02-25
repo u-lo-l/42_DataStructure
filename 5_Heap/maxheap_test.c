@@ -12,8 +12,14 @@ int main()
 	heap = createMaxHeap(5);
 	if (!heap)
 		return 1;
+	printf("data ->\n");
 	for (int i = 1; i < 28; i++)
+	{
+		printf("[%2d] ", i);
+		if (i % 15 == 0) printf("\n");
 		insertMaxHeapData(heap, i);
+	}
+	printf("\n");
 	showHeapTree(heap);
 	deleteMaxHeap(&heap);
 	return 0;
@@ -57,11 +63,10 @@ void showHeapTree(MaxHeap *H)
 	for (int i = 1 ; i < total ; i++)
 	{
 		if (i == power(2, level))
-			printf("\n\n\nlevel%2d ", level++ + 1);
+			printf("\n\nlevel%2d ", level++ + 1);
 		blanksize = totalfield / power(2, level - 1) - field;
 		printdata(H->pRootNode[i].data, blanksize);
 	}
-	
 	printf("\n");
 	for (int i = 0 ; i < totalfield + 7 ; i++)
 		printf("=");
