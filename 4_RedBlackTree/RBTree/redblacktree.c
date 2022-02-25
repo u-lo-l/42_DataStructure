@@ -83,7 +83,6 @@ void deleteRBTree(RBTree **ppTree)
  */
 void rightRotation(RBTree *pTree, RBTreeNode *pNode)
 {
-	printf("R rot\n");
 	RBTreeNode *temp;
 
 	if (!pTree || !pNode)
@@ -109,7 +108,6 @@ void rightRotation(RBTree *pTree, RBTreeNode *pNode)
 /*rightRotation과 대칭적으로 작동한다.*/
 void leftRotation(RBTree *pTree, RBTreeNode *pNode)
 {
-	printf("L rot\n");
 	RBTreeNode *temp;
 	if (!pTree || !pNode)
 		return ;
@@ -250,40 +248,173 @@ static void addNodeRBrecursive(RBTree *T, RBTreeNode *N, int key)
 }
 
 static int delRestructTree(RBTree* pTree, RBTreeNode *pNode);
-static int delNodeRBRecursive(RBTree* pTree, RBTreeNode *pNode, char key);
+static RBTreeNode *delNodeRBRecursive(RBTree* pTree, RBTreeNode *pNode, char key);
 int deleteNodeRB(RBTree *pTree, RBTreeNode element)
 {
+	RBTreeNode *result;
 	if (!pTree)
-		return (-1);
-	printf("DEL %c from tree\n", key);
+		return (0);
+	printf("DEL %c from tree\n", element.data);
 	
-	delNodeRBRecursive(pTree, pNode, key);
+	result = delNodeRBRecursive(pTree, pTree->pRootNode, element.data);
+	if (result == NULL) return (0);
+	pTree->pRootNode = result;
+	pTree->pRootNode->color = black;
+	return (1);
 }
-static int delNodeRBRecursive(RBTree *T, RBTreeNode *N, char key)
+/*
+ * 기본적으로 이진탐색트리에서 노드 삭제 방법을 이어받는다.
+ *  한 가지 다른 점은 노드의 parent포인터가 추가되었다는 점이다.
+ * parentnode를 알기때문에, 함수 내부에서 부모노드의 자식에 대해 수정해줄 수 있어서
+ * 반환 타입이 Node *가 아니여도 된다. 대신 부모의 자식노드이동에 대한 절차가 추가된다.
+*/
+static RBTreeNode *delNodeRBRecursive(RBTree *T, RBTreeNode *N, char key)
 {
-	int result;
+	RBTreeNode *result;
+	int N_color = black; // 삭제할 노드의 색을 저장할 자료이다.
+	RBTreeNode *successor;
+	if (!T || !N)	return (NULL);
 	if (N == T->nilNode)
 	{
 		printf("Reach to nilnode. fail to find key:[%c]\n", key);
-		return (FALSE);
+		return (NULL);
 	}
 	if (key < N->data)
 	{
 		result = delNodeRBRecursive(T, N->pLeftChild, key);
-		if (result == -1) return (-1);
+		if (result == NULL)	return (NULL);
+		N->pLeftChild = result;
 	}
 	else if (key > N->data)
 	{
 		result = delNodeRBRecursive(T, N->pRightChild, key);
-		if (result == FALSE) return (FALSE);
+		if (result == NULL)	return (NULL);
+		N->pRightChild = result;
 	}
-	else
-		delRestructTree(T, N);
-	return (TRUE);
-}
+	else 
+	{
+		N_color = N->color;
+		N->color = black;						//successor가 N의 자리에 오게 될텐데 successor의 색을 black으로 바꿔준다.
+		if (N->pLeftChild == T->nilNode)		// 오른쪽 자식만 있거나 리프노드이거나
+			successor = N->pRightChild;
+		else if (N->pRightChild == T->nilNode)	// 왼쪽 자식만 있는 경우
+			successor = N->pLeftChild;
+		else									// 둘 다 있는 경우. 이 경우는 위의 두 케이스를 만날 때 까지 재귀한다.
+		{
+			successor = N->pRightChild;
+			while(successor->pLeftChild != T->nilNode)
+				successor = successor->pLeftChild;
 
+			N->data = successor->data;			//N을 successor로 대체하고
+
+			result = delNodeRBRecursive(T, N->pRightChild, successor->data); //N의 오른쪽 서브트리에서 재귀한다.
+			if (result == NULL)	return(NULL);
+			N->pRightChild = result;
+
+			return (N);
+		}
+		// 자식의 수가 0이거나 1인 경우에 편하게 삭제할 수 있다.
+		deleteRBTreeNode(N);
+		return (successor);
+	}
+	if (N_color == red)
+		delRestructTree(T, N);
+	return (N);
+}
+/*
+ * 삭제되는 노드가 red인 경우, 별다른 과정 없이 그냥 삭제하면 된다.
+ * 삭제되는 노드가 검정인 경우 삭제되는 노드의 "successor를 검정으로 바꾼다".
+ * 검정으로 색이 바뀌게 되는 노드의 기존 색에 따라 경우의 수가 나뉜다.
+ * RED		: 이진 탐색 트리의 규칙에 맞게 삭제한다.
+ * BLACK	: black이 black으로 바뀌게 되는 경우를 double black이라 하며
+ *			  4가지 case로 분류할 수 있다.(좌우 대칭이므로 총 8개)
+ *[삭제되는 노드를 C, 부모 형제를 각각 P, S라 하고 S의 왼쪽, 오른쪽자식을 가각 SL, SR이라 가정]
+ *
+ *- CASE 1 -: S가 red인 경우
+ *----------> P를 red, S를 black으로 바꾼다. 이후 P를 기준으로 rotation한다.
+ *
+ *- CASE 2 -: S, SL, SR이 모두 black인 경우
+ *----------> S를 red로 바꾸고, 색이 바뀌는 대상을 P로 바꾼다.
+ *			  P가 red였다면, 그냥 black으로 바꿔주면 된다.
+ *			  P가 black이라면 다시 double black상황이므로 CASE1~4에 따라 다시 조정한다.
+ *
+ *- CASE 3 -: S가 black, SL이 red, SR이 black인 경우
+ *----------> S를 red, SL을 black으로 바꾼 뒤 S, SL를 기준으로 rotation한다. 이후 CASE 를 다시 확인한다.
+ *
+ *- CASE 4 -: S가 black SR이 red인 경우 (SL의 색은 관련 없음)
+ *----------> S의 색을 P의 색으로 바꾼다. (P가 red라면 red, P가 black이라면 black으로 바꾼다.)
+ *			  이후 P, S를 기준으로 rotation한다.
+*/
 static int delRestructTree(RBTree *T, RBTreeNode *N)
 {
+	RBTreeNode *P, *S, *SL, *SR;
 	if (!T || !N)
-		return (FALSE);
+		return (0);
+	while (N->color == black) // 삭제되는 노드인 N이 red인 경우, 그냥 넘어가면 된다.
+	{
+		P = N->pParent;
+		if (N == P->pLeftChild)
+		{
+			S = P->pRightChild;
+			SL = S->pLeftChild;
+			SR = S->pRightChild;
+			if (S->color == red)
+			{
+				P->color = red;
+				S->color = black;
+				leftRotation(T, P);
+				// N = P;
+			}
+			else if (S->color == black && SL->color == black && SR->color == black)
+			{
+				S->color = red;
+				N = P;
+			}
+			else if (S->color == black && SL->color == red && SR->color == black)
+			{
+				S->color = red;
+				SL->color = black;
+				rightRotation(T, S);
+			}
+			else if (S->color == black && SR->color == red)
+			{
+				S->color = P->color;
+				P->color = black;
+				SR->color = black;
+				leftRotation(T, P);
+			}
+		}
+		else
+		{
+			S = P->pLeftChild;
+			SL = S->pLeftChild;
+			SR = S->pRightChild;
+			if (S->color == red)
+			{
+				P->color = red;
+				S->color = black;
+				rightRotation(T, P);
+				// N = P;
+			}
+			else if (S->color == black && SL->color == black && SR->color == black)
+			{
+				S->color = red;
+				N = P;
+			}
+			else if (S->color == black && SR->color == red && SL->color == black)
+			{
+				S->color = red;
+				SR->color = black;
+				leftRotation(T, S);
+			}
+			else if (S->color == black && SL->color == red)
+			{
+				S->color = P->color;
+				P->color = black;
+				SL->color = black;
+				rightRotation(T, P);
+			}
+		}
+	}
+	return (1);
 }

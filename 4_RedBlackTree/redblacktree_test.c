@@ -15,12 +15,17 @@ int main()
 		printf("[%c]  ",data);
 		Nodes[i] = makeRBTreeNode(data);
 	}
-	printf("\n");
+	printf("\n-----------------------------------\n");
 	for (int i = 0; i < 10; i++)
+	{
 		addNodeRB(Tree, *Nodes[i]);
-	printf("\n===========INSERT COMPLETE========\n");
-	showRBTreeStructure(Tree);
+		showRBTreeStructure(Tree);
+	}
+	printf("===========INSERT COMPLETE========\n");
 	for (int i = 0; i < 10; i++)
-		deleteRBTreeNode(Nodes[i]);
+	{
+		deleteNodeRB(Tree, *Nodes[i]);
+		showRBTreeStructure(Tree);
+	}
 	deleteRBTree(&Tree);
 }

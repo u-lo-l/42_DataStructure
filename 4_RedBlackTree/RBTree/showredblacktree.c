@@ -11,7 +11,7 @@ int printNodeInfo(RBTreeNode *pNode)
 	if (pNode->color == red)
 		printf("\033[0;31m");
 	else
-		printf("\033[0;90m");
+		printf("\033[0;33m");
 	p = pNode->pParent->data;
 	l = pNode->pLeftChild->data;
 	r = pNode->pRightChild->data;
@@ -76,17 +76,20 @@ void showRBTreeStructure(RBTree *pTree)
 
 	if (!pTree)
 		return ;
+	if (pTree->pRootNode == NULL || pTree->pRootNode == pTree->nilNode)
+	{
+		printf("\033[1;31m\tEmpty Tree\n\033[0m");
+		return ;
+	}
 	setTreeInfo(pTree);
 	tempNode.node = *(pTree->pRootNode);
 	queue = createLinkedQueque();
 	enqueueLQ(queue, tempNode);
 	while(!isLinkedQueueEmpty(queue))
 	{
-		// printf("I : %d\n", index);
 		firstNode = peekLQ(queue);
 		if(firstNode->node.index == index)
 		{
-			// printf("node yes\n");
 			firstNode = dequeueLQ(queue);
 			if (firstNode->node.pLeftChild != pTree->nilNode)
 			{
@@ -132,9 +135,9 @@ static void printDataAndBlank(QueueNode *qNode,int treeheight, int currI)
 	int level, totalField, blanksize;
 
 	char dataStr[4];
-	dataStr[0] = '[';
+	dataStr[0] = ' ';
 	dataStr[1] = ' ';
-	dataStr[2] = ']';
+	dataStr[2] = ' ';
 	dataStr[3] = 0;
 	totalField = power(2, treeheight - 1) * (3 + 1); //3 : field for data, 1 : field for smallest blank;
 	level = getLevelByIndex(currI);
@@ -144,7 +147,9 @@ static void printDataAndBlank(QueueNode *qNode,int treeheight, int currI)
 		printf("\nlevel%2d ", level);
 	if (qNode)
 	{
+		dataStr[0] = '[';
 		dataStr[1] = qNode->node.data;
+		dataStr[2] = ']';
 		if (qNode->node.color == red)
 			printf("\033[0;31m");
 		else if (qNode->node.color == black)

@@ -1,4 +1,4 @@
-TARGET = rbTree.out
+TARGET = RBTree.out
 CC = gcc
 RM = rm -f
 
