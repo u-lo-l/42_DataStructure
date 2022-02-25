@@ -131,21 +131,21 @@ BinTreeNode *deleteNodeBSTrecursive(BinTree *tree,
 		root->pLeftChild = deleteNodeBSTrecursive(tree, root->pLeftChild, data, func);
 	else if (data > root->data)
 		root->pRightChild = deleteNodeBSTrecursive(tree, root->pRightChild, data, func);
-	else
+	else // key == data!! else 부분은 결과적으로 successor를 return해서 if와 elseif 케이스에 반환해준다.
 	{
-		successor = root->pRightChild;
-		if (root->pRightChild == NULL)
+		if (root->pLeftChild == NULL)				//삭제할 노드가 리프노드이거나 오른쪽 자식만 있거나
+			successor = root->pRightChild;			
+		else if (root->pRightChild == NULL)			//삭제할 노드가 왼쪽자식만 있는 경우
 			successor = root->pLeftChild;
-		else
+		else										//둘 다 있을 때
 		{
+			successor = root->pRightChild;
 			while (successor->pLeftChild)
 				successor = successor->pLeftChild;
 			root->data = successor->data;
 			root->pRightChild = deleteNodeBSTrecursive(tree, root->pRightChild, successor->data, func);
 			return (root);
 		}
-		if (root == tree->pRootNode)
-			tree->pRootNode = successor;
 		deleteBinTreeNode(root);
 		return (successor);
 	}

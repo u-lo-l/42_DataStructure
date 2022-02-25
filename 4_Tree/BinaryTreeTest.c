@@ -26,12 +26,13 @@ int main()
 		Nodes[i] = makeBinTreeNode(data);
 	}
 	printf("================CREATED DATA=================\n");
+	printf("[%c]", rootNode->data);
 	for (int i = 0 ; i < 9 ; i++)
-		printf(" [%c] ", Nodes[i]->data);
-	printf("\n=====================BT=====================\n");
-	test_BinTree(rootNode, Nodes);
-	printf("\n=====================BST====================\n");
-	test_BinSearchTree(rootNode, Nodes);
+		printf("->[%c]", Nodes[i]->data);
+	// printf("\n=====================BT=====================\n");
+	// test_BinTree(rootNode, Nodes);
+	// printf("\n=====================BST====================\n");
+	// test_BinSearchTree(rootNode, Nodes);
 	printf("\n=====================AVL====================\n");
 	test_AVLTree(rootNode, Nodes);
 
@@ -79,6 +80,12 @@ void test_BinSearchTree(BinTreeNode *rootNode, BinTreeNode *Nodes[9])
 	addNodeBST(Tree, *Nodes[8]);
 	setTreeInfo(Tree);
 	showBinTreeStructure(Tree);
+	for (int i = 0 ; i < 9 ; i++)
+	{
+		deleteNodeBST(Tree, Nodes[i]->data);
+		setTreeInfo(Tree);
+		showBinTreeStructure(Tree);
+	}	
 	deleteBinTree(Tree);
 	
 	return ;
@@ -100,7 +107,14 @@ void test_AVLTree(BinTreeNode *rootNode, BinTreeNode *Nodes[9])
 	addNodeAVL(Tree, *Nodes[8]);
 	setTreeInfo(Tree);
 	showBinTreeStructure(Tree);
+	for (int i = 0 ; i < 8 ; i++)
+	{
+		deleteNodeAVL(Tree, Nodes[i]->data);
+		setTreeInfo(Tree);
+		showBinTreeStructure(Tree);
+	}	
 	deleteBinTree(Tree);
+
 	
 	return ;
 }

@@ -108,7 +108,7 @@ int		deleteNodeAVL(BinTree *bst, int data)
 		printf("\033[0;31m<ERR> Invalid tree\n\033[0m");
 		return (-1);
 	}
-	printf("\033[0;31mtarget data : %d\n\033[0m", data);
+	printf("\033[0;31mtarget data : %c\n\033[0m", data);
 	bst->pRootNode = deleteNodeBSTrecursive(bst, bst->pRootNode, data, balanceTree);
 	return (1);
 }
