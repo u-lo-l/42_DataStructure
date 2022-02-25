@@ -1,5 +1,5 @@
 #include "redblacktree.h"
-#include "Queue/linkedqueue.h"
+#include "../Queue/linkedqueue.h"
 
 void preorderTraversal(RBTree *pTree, RBTreeNode *pNode, int (*func)(RBTreeNode *))
 {

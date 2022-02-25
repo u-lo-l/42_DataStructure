@@ -21,6 +21,7 @@ RBTreeNode *makeRBTreeNode(char data)
 int deleteRBTreeNode(RBTreeNode *pNode)
 {
 	free(pNode);
+	return (1);
 }
 
 /*
@@ -157,7 +158,7 @@ RBTreeNode *addRestructTree(RBTree *pTree, RBTreeNode *pNode)
 					leftRotation(pTree, pNode->pParent);
 				rightRotation(pTree, pNode->pParent);
 				pNode->color = black;
-				pNode->pRightChild = red;
+				pNode->pRightChild->color = red;
 			}
 		}
 		else
