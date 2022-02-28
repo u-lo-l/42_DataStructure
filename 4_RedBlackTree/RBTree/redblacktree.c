@@ -394,7 +394,6 @@ static int delRestructTree(RBTree *T, RBTreeNode *N)
 				P->color = red;
 				S->color = black;
 				rightRotation(T, P);
-				// N = P;
 			}
 			else if (S->color == black && SL->color == black && SR->color == black)
 			{
