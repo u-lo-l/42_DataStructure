@@ -1,4 +1,5 @@
 #include "arraygraph.h"
+#include "graph_traversal.h"
 #include <stdlib.h>
 #include <stdio.h>
 #define NODE_COUNT 8
@@ -22,6 +23,7 @@ int main()
 	addEdgeAG(graph, 3, 7);
 	addEdgeAG(graph, 4, 5);
 	displayArrayGraph(graph);
+	/*
 	printf("REM Vertex\n");
 	removeVertexAG(graph, 2);
 	removeVertexAG(graph, 5);
@@ -32,6 +34,14 @@ int main()
 	removeEdgeAG(graph, 4, 1);
 	removeEdgeAG(graph, 7, 3);
 	displayArrayGraph(graph);
+	*/
+	printf("=======TRAVERSAL========\n");
+	traversal_DFS_iter_AG(graph, 0);
+	printf("========================\n");
+
+	printf("=======TRAVERSAL========\n");
+	traversal_BFS_iter_AG(graph, 0);
+	printf("========================\n");
 	deleteArrayGraph(graph);
 	return 0;
 }
