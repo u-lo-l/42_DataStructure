@@ -1,5 +1,4 @@
 #include "arraygraph.h"
-#include "graph_traversal.h"
 #include <stdlib.h>
 #include <stdio.h>
 #define NODE_COUNT 8

@@ -95,7 +95,7 @@ int addVertexLG(LinkedGraph* pGraph, int vertexID)
 
 int addEdgeLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
 {
-	addEdgewithWeightLG(pGraph, fromVertexID, toVertexID, WEIGHT_DEFAULT);
+	return (addEdgewithWeightLG(pGraph, fromVertexID, toVertexID, WEIGHT_DEFAULT));
 }
 int addEdgewithWeightLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID, int weight)
 {
