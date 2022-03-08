@@ -1,10 +1,28 @@
 #include "linkedgraph.h"
+#include "./MinSpanningTree/Kruskal/kruskal.h"
+#include "./MinSpanningTree/Prim/prim.h"
 #include <stdio.h>
 #include <stdlib.h>
 #define NODE_COUNT 8
+
+void LinkedGraph_test();
+
+void Kruskal_test();
+
+void Prim_test();
+
 int main()
 {
-	LinkedGraph *graph;
+	// printf("LinkedGraph Test\n");
+	// LinkedGraph_test();
+
+	printf("Kruskal Test\n");
+	Kruskal_test();
+}
+
+void LinkedGraph_test()
+{
+		LinkedGraph *graph;
 
 	graph = createLinkedGraph(NODE_COUNT);
 	displayLinkedGraph(graph);
@@ -44,19 +62,69 @@ int main()
 	removeVertexLG(graph, 5);
 	printf("\033[0;31mREM 5\n\033[0m");
 	displayLinkedGraph(graph);
-	printf("REM EDGE\n");
-	removeEdgeLG(graph, 0, 1);
-	printf("\033[0;31mREM 0->1\n\033[0m");
-	displayLinkedGraph(graph);
-	removeEdgeLG(graph, 3, 1);
-	printf("\033[0;31mREM 3->1\n\033[0m");
-	displayLinkedGraph(graph);
-	removeEdgeLG(graph, 4, 1);
-	printf("\033[0;31mREM 4->1\n\033[0m");
-	displayLinkedGraph(graph);
-	removeEdgeLG(graph, 7, 3);
-	printf("\033[0;31mREM 7->3\n\033[0m");
-	displayLinkedGraph(graph);
+	// printf("REM EDGE\n");
+	// removeEdgeLG(graph, 0, 1);
+	// printf("\033[0;31mREM 0->1\n\033[0m");
+	// displayLinkedGraph(graph);
+	// removeEdgeLG(graph, 3, 1);
+	// printf("\033[0;31mREM 3->1\n\033[0m");
+	// displayLinkedGraph(graph);
+	// removeEdgeLG(graph, 4, 1);
+	// printf("\033[0;31mREM 4->1\n\033[0m");
+	// displayLinkedGraph(graph);
+	// removeEdgeLG(graph, 7, 3);
+	// printf("\033[0;31mREM 7->3\n\033[0m");
+	// displayLinkedGraph(graph);
 	deleteLinkedGraph(graph);
-	return 0;
+}
+
+void Kruskal_test()
+{
+	LinkedGraph *mainGraph = createLinkedGraph(6);
+	LinkedGraph *minSpanningTree;
+	printf("\033[0;34mInitGraph\n\033[0m");
+	displayLinkedGraph(mainGraph);
+	for (int i = 0 ; i < 6 ; i++)
+		addVertexLG(mainGraph, i);
+	addEdgewithWeightLG(mainGraph, 0, 1, 4);
+	addEdgewithWeightLG(mainGraph, 0, 2, 3);
+	addEdgewithWeightLG(mainGraph, 1, 2, 2);
+	addEdgewithWeightLG(mainGraph, 2, 3, 1);
+	addEdgewithWeightLG(mainGraph, 3, 4, 1);
+	addEdgewithWeightLG(mainGraph, 3, 5, 5);
+	addEdgewithWeightLG(mainGraph, 4, 5, 6);
+	printf("\033[0;34m\nInitGraph DONE\033[0m\n");
+	displayLinkedGraph(mainGraph);
+	printf("\033[0;33m\nSTART KRUSKAL\033[0m\n");
+	minSpanningTree = kruskal(mainGraph);
+	printf("\033[0;32mRESULT\033[0m\n");
+	displayLinkedGraph(minSpanningTree);
+	deleteLinkedGraph(mainGraph);
+	deleteLinkedGraph(minSpanningTree);
+}
+
+void Prim_test()
+{
+	LinkedGraph *mainGraph = createLinkedGraph(6);
+	LinkedGraph *minSpanningTree;
+	printf("\033[0;34mInitGraph\n\033[0m");
+	displayLinkedGraph(mainGraph);
+	for (int i = 0 ; i < 6 ; i++)
+		addVertexLG(mainGraph, i);
+	addEdgewithWeightLG(mainGraph, 0, 1, 4);
+	addEdgewithWeightLG(mainGraph, 0, 2, 3);
+	addEdgewithWeightLG(mainGraph, 1, 2, 2);
+	addEdgewithWeightLG(mainGraph, 2, 3, 1);
+	addEdgewithWeightLG(mainGraph, 3, 4, 1);
+	addEdgewithWeightLG(mainGraph, 3, 5, 5);
+	addEdgewithWeightLG(mainGraph, 4, 5, 6);
+	printf("\033[0;34m\nInitGraph DONE\033[0m\n");
+	displayLinkedGraph(mainGraph);
+	printf("\033[0;33m\nSTART PRIM\033[0m\n");
+	// minSpanningTree = prim(mainGraph);
+	// printf("\033[0;32mRESULT\033[0m\n");
+	// displayLinkedGraph(minSpanningTree);
+	// deleteLinkedGraph(mainGraph);
+	// deleteLinkedGraph(minSpanningTree);
+
 }

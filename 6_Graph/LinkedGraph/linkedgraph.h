@@ -2,6 +2,7 @@
 #define _GRAPH_ADJLIST_
 #include "LinkedList/linkedlist.h"
 #define WEIGHT_DEFAULT 1
+
 typedef struct LinkedGraphType
 {
 	int maxVertexCount;
@@ -41,6 +42,10 @@ int getMaxVertexCountLG(LinkedGraph* pGraph);
 int getGraphTypeLG(LinkedGraph* pGraph);
 
 void displayLinkedGraph(LinkedGraph* pGraph);
+
+int traversal_DFS_iter_LG(LinkedGraph *LG, int startID);
+
+int traversal_BFS_iter_LG(LinkedGraph *LG, int startID);
 #endif
 
 #ifndef _COMMON_GRAPH_DEF_

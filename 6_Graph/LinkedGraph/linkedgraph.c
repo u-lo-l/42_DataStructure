@@ -25,6 +25,7 @@ LinkedGraph* createLinkedGraph(int maxVertexCount)
 	}
 	return (graph);
 }
+
 LinkedGraph* createLinkedDirectedGraph(int maxVertexCount)
 {
 	LinkedGraph *graph;
@@ -114,7 +115,6 @@ int addEdgewithWeightLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID, i
 		newNode.weight = weight;
 		result = addLLElement(pGraph->ppAdjEdge[toVertexID], 0, newNode);
 		if (result == EXIT_FAILURE)	return (FALSE);
-		pGraph->currentEdgeCount++;
 	}
 	return (TRUE);
 }
@@ -203,6 +203,7 @@ void displayLinkedGraph(LinkedGraph* pGraph)
 		printf("DIRECTED_GRAPH\n");
 	else
 		printf("UNDIRECTED_GRAPH\n");
+	printf("max : %d, cur_E : %d, cur_V : %d\n", pGraph->maxVertexCount, pGraph->currentEdgeCount, pGraph->currentVertexCount);
 	printf("|");
 	for (int i = 0 ; i < pGraph->maxVertexCount; i++)
 		printf("% 2d|", i);
