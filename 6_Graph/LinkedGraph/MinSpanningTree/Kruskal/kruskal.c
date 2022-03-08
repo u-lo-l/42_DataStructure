@@ -1,6 +1,6 @@
 #include "kruskal.h"
 
-heapNode makeHeapNode(ListNode lNode, int from)
+static heapNode makeHeapNode(ListNode lNode, int from)
 {
 	heapNode node;
 	node.weight = lNode.weight;
