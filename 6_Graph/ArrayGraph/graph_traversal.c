@@ -44,6 +44,7 @@ int traversal_DFS_iter_AG(ArrayGraph *AG, int startID)
 	printf("\n");
 	free(visited_info);
 	deleteLinkedStack(S);
+	return (TRUE);
 }
 
 int traversal_BFS_iter_AG(ArrayGraph *AG, int startID)
