@@ -43,9 +43,22 @@ int getGraphTypeLG(LinkedGraph* pGraph);
 
 void displayLinkedGraph(LinkedGraph* pGraph);
 
+/*union find*/
+int *initParentTable(LinkedGraph *pGraph);
+
+int	getUnionParent(int *parentTable, int a);
+
+void unionParent(int *parentTable, int a, int b);
+
+int findParent(int *parentTable, int a, int b);
+
+int isGraphConnected(LinkedGraph *pGraph);
+
+/*Traversal*/
 int traversal_DFS_iter_LG(LinkedGraph *LG, int startID);
 
 int traversal_BFS_iter_LG(LinkedGraph *LG, int startID);
+
 #endif
 
 #ifndef _COMMON_GRAPH_DEF_

@@ -1,6 +1,5 @@
 #include "linkedgraph.h"
-#include "./MinSpanningTree/Kruskal/kruskal.h"
-#include "./MinSpanningTree/Prim/prim.h"
+#include "./MinSpanningTree/spanningTree.h"
 #include <stdio.h>
 #include <stdlib.h>
 #define NODE_COUNT 8
@@ -14,74 +13,45 @@ void Prim_test();
 
 int main()
 {
-	// printf("LinkedGraph Test\n");
-	// LinkedGraph_test();
+	printf("LinkedGraph Test\n");
+	LinkedGraph_test();
 
-	// printf("Kruskal Test\n");
+	// printf("\033[1;48;5;117;38;5;16mKruskal Test\033[0m\n");
 	// Kruskal_test();
-
-	// printf("\n\nKruskal Test BAD\n");
+	// printf("\n\n");
+	// printf("\033[1;48;5;197;38;5;16mKruskal Test BAD\033[0m\n");
 	// Kruskal_test_bad();
-
-	printf("Prim Test\n");
-	Prim_test();
+	// printf("\n\n");
+	// printf("\033[1;48;5;117;38;5;16mPrim Test\033[0m\n");
+	// Prim_test();
+	// printf("\n\n");
 }
 
 void LinkedGraph_test()
 {
-		LinkedGraph *graph;
+	LinkedGraph *graph;
 
-	graph = createLinkedGraph(NODE_COUNT);
+	graph = createLinkedGraph(8);
 	displayLinkedGraph(graph);
-	printf("ADD Vertex\n");
-	for (int i = 0 ; i < NODE_COUNT ; i++)
+	for (int i = 0 ; i < 8 ; i++)
 		addVertexLG(graph, i);
-	displayLinkedGraph(graph);
-	printf("ADD EDGE\n");
-	addEdgeLG(graph, 0, 1);
-	printf("\033[0;31mADD 0->1\n\033[0m");
-	displayLinkedGraph(graph);
 	addEdgeLG(graph, 0, 2);
-	printf("\033[0;31mADD 0->2\n\033[0m");
-	displayLinkedGraph(graph);
+	addEdgeLG(graph, 0, 1);
 	addEdgeLG(graph, 1, 3);
-	printf("\033[0;31mADD 1->3\n\033[0m");
-	displayLinkedGraph(graph);
 	addEdgeLG(graph, 1, 4);
-	printf("\033[0;31mADD 1->4\n\033[0m");
-	displayLinkedGraph(graph);
 	addEdgeLG(graph, 2, 5);
-	printf("\033[0;31mADD 2->5\n\033[0m");
-	displayLinkedGraph(graph);
-	addEdgeLG(graph, 2, 6);
-	printf("\033[0;31mADD 2->6\n\033[0m");
-	displayLinkedGraph(graph);
+	addEdgeLG(graph, 2 ,6);
 	addEdgeLG(graph, 3, 7);
-	printf("\033[0;31mADD 3->7\n\033[0m");
-	displayLinkedGraph(graph);
 	addEdgeLG(graph, 4, 5);
-	printf("\033[0;31mADD 4->5\n\033[0m");
 	displayLinkedGraph(graph);
-	printf("REM Vertex\n");
-	removeVertexLG(graph, 2);
-	printf("\033[0;31mREM 2\n\033[0m");
-	displayLinkedGraph(graph);
-	removeVertexLG(graph, 5);
-	printf("\033[0;31mREM 5\n\033[0m");
-	displayLinkedGraph(graph);
-	// printf("REM EDGE\n");
-	// removeEdgeLG(graph, 0, 1);
-	// printf("\033[0;31mREM 0->1\n\033[0m");
-	// displayLinkedGraph(graph);
-	// removeEdgeLG(graph, 3, 1);
-	// printf("\033[0;31mREM 3->1\n\033[0m");
-	// displayLinkedGraph(graph);
-	// removeEdgeLG(graph, 4, 1);
-	// printf("\033[0;31mREM 4->1\n\033[0m");
-	// displayLinkedGraph(graph);
-	// removeEdgeLG(graph, 7, 3);
-	// printf("\033[0;31mREM 7->3\n\033[0m");
-	// displayLinkedGraph(graph);
+	if (isGraphConnected(graph))
+		printf("CONNECTED\n");
+	else
+		printf("NOT CONNECTED\n");
+	printf("DFS\n");
+	traversal_DFS_iter_LG(graph, 0);
+	printf("BFS\n");
+	traversal_BFS_iter_LG(graph, 0);
 	deleteLinkedGraph(graph);
 }
 

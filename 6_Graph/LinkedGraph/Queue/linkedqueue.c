@@ -13,12 +13,10 @@ LinkedQueue* createLinkedQueque()
 }
 int enqueueLQ(LinkedQueue* pQueue, QueueNode element)
 {
-	printf("<ENQUEUE>\n");
     QueueNode *new;
     if (!pQueue)
         return (FALSE);
     new = (QueueNode *)calloc(1,sizeof(QueueNode));
-	printf("ptr : %p\n", new->pLink);
     if (!new)
         return (FALSE);
     new->data = element.data;
@@ -38,14 +36,10 @@ int enqueueLQ(LinkedQueue* pQueue, QueueNode element)
 QueueNode* dequeueLQ(LinkedQueue* pQueue)
 {
 	QueueNode *pReturn;
-	printf("DeQ start\n");
     if (!pQueue)
         return (NULL);
     if (isLinkedQueueEmpty(pQueue))
-    {
-        printf("Queue is already empty\n");
         return (NULL);
-    }
 	pReturn = pQueue->pFrontNode;
     if (pQueue->currentElementCount == 1)
 	{
@@ -104,34 +98,6 @@ int isLinkedQueueEmpty(LinkedQueue* pQueue)
 	if (!pQueue)
 		return (FALSE);
 	if (pQueue->pFrontNode == NULL && pQueue->pRearNode == NULL)
-	{
-		printf("EMPTY\n");
 		return (TRUE);
-	}
 	return (FALSE);
-}
-
-int main()
-{
-	LinkedQueue *test;
-
-	test = createLinkedQueque();
-
-	QueueNode node_arr[10];
-
-	for (int i = 0 ; i < 6 ; i++)
-	{
-		node_arr[i].data = 'a' + i;
-		enqueueLQ(test, node_arr[i]);
-		displayLQ(test);
-	}
-
-	for (int i = 0 ; i < 6 ; i++)
-	{
-		QueueNode *temp = dequeueLQ(test);
-		free(temp);
-		displayLQ(test);
-	}
-
-	system("leaks a.out");
 }

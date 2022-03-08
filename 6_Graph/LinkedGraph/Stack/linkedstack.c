@@ -128,43 +128,9 @@ void printLinkedStack(LinkedStack *pStack)
 	printf("[top]");
 	while (node)
 	{
-		printf(" <%c>", node->data);
+		printf(" <%d>", node->data);
 		node = node->pLink;
 	}
 	printf("\n");
 	return ;
-}
-
-int main()
-{
-	LinkedStack *lstack;
-	StackNode	nodes[10];
-	
-	lstack = createLinkedStack();
-	// printLinkedStack(lstack);
-
-	for (int i = 0; i < 10 ; i++)
-	{
-		nodes[i].data = i + 'a';
-		pushLS(lstack, nodes[i]);
-		printLinkedStack(lstack);
-	}
-	printLinkedStack(lstack);
-
-	for (int i = 0; i < 10; i++)
-	{
-		StackNode *pop = popLS(lstack);
-		printf("POPED DATA : %c\n", pop->data);
-		free(pop);
-		printLinkedStack(lstack);
-	}
-	
-	for (int i = 0; i < 10 ; i++)
-	{
-		nodes[i].data = i + 'A';
-		pushLS(lstack, nodes[i]);
-	}
-	printLinkedStack(lstack);
-
-	deleteLinkedStack(lstack);	
 }

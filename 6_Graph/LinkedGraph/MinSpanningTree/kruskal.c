@@ -1,4 +1,4 @@
-#include "kruskal.h"
+#include "spanningTree.h"
 
 static heapNode makeHeapNode(ListNode lNode, int from)
 {
@@ -34,56 +34,6 @@ heap *sortEdge(LinkedGraph *LG)
 	return (sortedEdge);
 }
 
-
-
-// heap	*sortEdge(LinkedGraph *LG)
-// {
-// 	heap *sortedEdge;
-	
-// 	sortedEdge = createHeap(LG->currentVertexCount);
-
-// 	for (int i = 0 ; i < LG->maxVertexCount ; i++)
-// 	{
-// 		if (LG->pVertex[i] == NOT_USED)
-// 			continue ;
-// 		ListNode *node = (LG->ppAdjEdge[i])->headerNode.pLink;
-// 		while (node)
-// 		{
-// 			insertMinHeapNode(sortedEdge, makeHeapNode(*node, i));
-// 			node = node->pLink;
-// 		}
-// 	}
-// 	return (sortedEdge);
-// }
-
-int	getUnionParent(int *circularTable, int a)
-{
-	if (circularTable[a] == a)
-		return (a);
-	circularTable[a] = getUnionParent(circularTable, circularTable[a]);
-	return (circularTable[a]);
-}
-
-void unionParent(int *circularTable, int a, int b)
-{
-	a = getUnionParent(circularTable, a);
-	b = getUnionParent(circularTable, b);
-	if (a < b)
-		circularTable[b] = a;
-	else
-		circularTable[a] = b;
-}
-
-int	findParent(int *circularTable, int a, int b)
-{
-	a = getUnionParent(circularTable, a);
-	b = getUnionParent(circularTable, b);
-	if (a == b)
-		return (1);
-	else
-		return (0);
-}
-
 /*
  * 1. 본체 그래프 LG를 받아온다.
  * 2. LG의 최소 신장트리가 될 그래프를 생성한다.
@@ -102,7 +52,7 @@ LinkedGraph	*kruskal(LinkedGraph *LG)
 	
 	if (!LG)
 		return (0);
-	if (LG->maxVertexCount != LG->currentVertexCount)
+	if (!isGraphConnected(LG))
 	{
 		printf("Graph has 'not connected' Vertex\n");
 		return (0);

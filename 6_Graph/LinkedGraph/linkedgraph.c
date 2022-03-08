@@ -81,6 +81,7 @@ int isEmptyLG(LinkedGraph* pGraph)
 	return (FALSE);
 }
 
+
 int addVertexLG(LinkedGraph* pGraph, int vertexID)
 {
 	if (!pGraph) return (ERROR);

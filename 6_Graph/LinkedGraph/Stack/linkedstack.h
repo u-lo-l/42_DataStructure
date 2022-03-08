@@ -20,6 +20,7 @@ StackNode* peekLS(LinkedStack* pStack);
 void deleteLinkedStack(LinkedStack* pStack);
 int isLinkedStackFull(LinkedStack* pStack);
 int isLinkedStackEmpty(LinkedStack* pStack);
+void printLinkedStack(LinkedStack *pStack);
 
 #endif
 

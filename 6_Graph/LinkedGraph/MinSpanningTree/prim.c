@@ -1,4 +1,4 @@
-#include "prim.h"
+#include "spanningTree.h"
 
 static heapNode makeHeapNode(ListNode lNode, int from)
 {
@@ -41,7 +41,7 @@ LinkedGraph *prim(LinkedGraph *LG)
 
 	if (!LG)
 		return (0);
-	if (LG->maxVertexCount != LG->currentVertexCount)
+	if (!isGraphConnected(LG))
 	{
 		printf("Graph has 'not connected' Vertex\n");
 		return (0);
