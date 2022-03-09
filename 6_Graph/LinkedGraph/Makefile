@@ -24,24 +24,22 @@ GRAPH_DIR = ./
 GRAPH_FILES = linkedgraph.o linkedgraph_test.o unionfind.o graph_traversal.o
 GRAPH_OBJS = $(addprefix $(GRAPH_DIR), $(GRAPH_FILES))
 
-# KRUSKAL_DIR = ./MinSpanningTree/Kruskal/
-# KRUSKAL_FILES = kruskal.o
-# KRUSKAL_OBJS = $(addprefix $(KRUSKAL_DIR), $(KRUSKAL_FILES))
-
-# PRIM_DIR = ./MinSpanningTree/Prim/
-# PRIM_FIELS = prim.o
-# PRIM_OBJS = $(addprefix $(PRIM_DIR), $(PRIM_FIELS))
 
 MST_DIR = ./MinSpanningTree/
 MST_FILES = kruskal.o prim.o
 MST_OBJS = $(addprefix $(MST_DIR), $(MST_FILES))
+
+SHORTPATH_DIR = ./ShortestPath/
+SHORTPATH_FILES = dijkstra.o floyd.o
+SHORTPATH_OBJS = $(addprefix $(SHORTPATH_DIR), $(SHORTPATH_FILES))
 
 OBJS =	$(GRAPH_OBJS) \
 		$(HEAP_OBJS) \
 		$(STACK_OBJS) \
 		$(QUEUE_OBJS) \
 		$(LST_OBJS) \
-		$(MST_OBJS)
+		$(MST_OBJS) \
+		$(SHORTPATH_OBJS)
 
 SRCS = $(OBJS.o=.c)
 

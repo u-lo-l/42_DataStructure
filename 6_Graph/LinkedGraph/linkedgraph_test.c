@@ -1,5 +1,6 @@
 #include "linkedgraph.h"
 #include "./MinSpanningTree/spanningTree.h"
+#include "./ShortestPath/shortestPath.h"
 #include <stdio.h>
 #include <stdlib.h>
 #define NODE_COUNT 8
@@ -11,10 +12,14 @@ void Kruskal_test_bad();
 
 void Prim_test();
 
+void Dijkstra_test();
+
+void Floyd_test();
+
 int main()
 {
-	printf("LinkedGraph Test\n");
-	LinkedGraph_test();
+	// printf("LinkedGraph Test\n");
+	// LinkedGraph_test();
 
 	// printf("\033[1;48;5;117;38;5;16mKruskal Test\033[0m\n");
 	// Kruskal_test();
@@ -25,6 +30,12 @@ int main()
 	// printf("\033[1;48;5;117;38;5;16mPrim Test\033[0m\n");
 	// Prim_test();
 	// printf("\n\n");
+	printf("Dijkstra test\n");
+	Dijkstra_test();
+
+	// printf("FLOYD test\n");
+	// Floyd_test();
+
 }
 
 void LinkedGraph_test()
@@ -112,7 +123,6 @@ void Kruskal_test_bad()
 	deleteLinkedGraph(minSpanningTree);
 }
 
-
 void Prim_test()
 {
 	LinkedGraph *mainGraph = createLinkedGraph(6);
@@ -136,4 +146,52 @@ void Prim_test()
 	displayLinkedGraph(minSpanningTree);
 	deleteLinkedGraph(mainGraph);
 	deleteLinkedGraph(minSpanningTree);
+}
+
+void Dijkstra_test()
+{
+	LinkedGraph *mainGraph = createLinkedGraph(6);
+	int			*shortestPath;
+	for (int i = 0 ; i < 6 ; i++)
+		addVertexLG(mainGraph, i);
+	addEdgewithWeightLG(mainGraph, 0, 1, 1);
+	addEdgewithWeightLG(mainGraph, 0, 2, 3);
+	addEdgewithWeightLG(mainGraph, 1, 2, 2);
+	addEdgewithWeightLG(mainGraph, 2, 3, 1);
+	addEdgewithWeightLG(mainGraph, 3, 4, 8);
+	addEdgewithWeightLG(mainGraph, 3, 5, 3);
+	addEdgewithWeightLG(mainGraph, 4, 5, 4);
+	printf("\033[0;34m\nInitGraph DONE\033[0m\n");
+	displayLinkedGraph(mainGraph);
+	for (int i = 0 ; i < 6 ; i++)
+	{
+		printf("\033[0;33m\nSTART Dijkstra from %d\033[0m\n", i);
+		shortestPath = dijkstra(mainGraph, i);
+		printIntArray(shortestPath, 6);		
+		free(shortestPath);
+	}
+	deleteLinkedGraph(mainGraph);
+}
+
+void Floyd_test()
+{
+	LinkedGraph *mainGraph = createLinkedGraph(6);
+	int			**distMatrix;
+	for (int i = 0 ; i < 6 ; i++)
+		addVertexLG(mainGraph, i);
+	addEdgewithWeightLG(mainGraph, 0, 1, 1);
+	addEdgewithWeightLG(mainGraph, 0, 2, 3);
+	addEdgewithWeightLG(mainGraph, 1, 2, 2);
+	addEdgewithWeightLG(mainGraph, 2, 3, 1);
+	addEdgewithWeightLG(mainGraph, 3, 4, 8);
+	addEdgewithWeightLG(mainGraph, 3, 5, 3);
+	addEdgewithWeightLG(mainGraph, 4, 5, 4);
+	printf("\033[0;34m\nInitGraph DONE\033[0m\n");
+	displayLinkedGraph(mainGraph);
+
+	distMatrix = floyd(mainGraph);
+	printIntMatrix(distMatrix, 6, 6);
+	
+	deleteIntMatrix(distMatrix, 6);
+	deleteLinkedGraph(mainGraph);
 }
