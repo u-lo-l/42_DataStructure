@@ -15,18 +15,18 @@ int *initParentTable(LinkedGraph *pGraph)
 	return (parentTable);
 }
 
-int	getUnionParent(int *circularTable, int a)
+int	getParent(int *circularTable, int a)
 {
 	if (circularTable[a] == a)
 		return (a);
-	circularTable[a] = getUnionParent(circularTable, circularTable[a]);
+	circularTable[a] = getParent(circularTable, circularTable[a]);
 	return (circularTable[a]);
 }
 
 void unionParent(int *circularTable, int a, int b)
 {
-	a = getUnionParent(circularTable, a);
-	b = getUnionParent(circularTable, b);
+	a = getParent(circularTable, a);
+	b = getParent(circularTable, b);
 	if (a < b)
 		circularTable[b] = a;
 	else
@@ -35,8 +35,8 @@ void unionParent(int *circularTable, int a, int b)
 
 int	findParent(int *circularTable, int a, int b)
 {
-	a = getUnionParent(circularTable, a);
-	b = getUnionParent(circularTable, b);
+	a = getParent(circularTable, a);
+	b = getParent(circularTable, b);
 	if (a == b)
 		return (1);
 	else
