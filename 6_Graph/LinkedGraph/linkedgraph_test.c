@@ -22,8 +22,8 @@ void Floyd_test();
 
 int main()
 {
-	printf("LinkedGraph Test\n");
-	LinkedGraph_test();
+	// printf("LinkedGraph Test\n");
+	// LinkedGraph_test();
 
 	// printf("\033[1;48;5;117;38;5;16mKruskal Test\033[0m\n");
 	// Kruskal_test();
@@ -32,11 +32,13 @@ int main()
 	// Kruskal_test_bad();
 	// printf("\n\n");
 
-	// printf("\033[1;48;5;117;38;5;16mPrim Test\033[0m\n");
-	// Prim_test_unconnected();
-	// Prim_test_directed();
-	// Prim_test();
-	// printf("\n\n");
+	printf("\033[1;48;5;117;38;5;16mPrim Test\033[0m\n");
+	Prim_test_unconnected();
+	printf("\n\n");
+	Prim_test_directed();
+	printf("\n\n");
+	Prim_test();
+	printf("\n\n");
 	
 	// printf("Dijkstra test\n");
 	// Dijkstra_test();

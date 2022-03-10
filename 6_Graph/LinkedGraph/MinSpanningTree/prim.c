@@ -42,12 +42,12 @@ LinkedGraph *prim(LinkedGraph *LG)
 		return (0);
 	if (LG->graphType != GRAPH_UNDIRECTED)
 	{
-		printf("Graph has to be UNDIRECTED\n");
+		printf("\033[0;31mGraph has to be UNDIRECTED\033[0m\n");
 		return (0);
 	}
 	if (!isGraphConnected(LG))
 	{
-		printf("Graph is not connected\n");
+		printf("\033[0;31mGraph is not connected\033[0m\n");
 		return (0);
 	}
 	mst = createLinkedGraph(LG->maxVertexCount);
