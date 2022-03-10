@@ -40,6 +40,11 @@ LinkedGraph *prim(LinkedGraph *LG)
 
 	if (!LG)
 		return (0);
+	if (LG->graphType != GRAPH_UNDIRECTED)
+	{
+		printf("Graph has to be UNDIRECTED\n");
+		return (0);
+	}
 	if (!isGraphConnected(LG))
 	{
 		printf("Graph is not connected\n");
