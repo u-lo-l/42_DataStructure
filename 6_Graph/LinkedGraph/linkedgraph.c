@@ -30,36 +30,10 @@ LinkedGraph* createLinkedDirectedGraph(int maxVertexCount)
 {
 	LinkedGraph *graph;
 
-	graph = calloc(1, sizeof(LinkedGraph));
-	if (!graph)	return(NULL);
-	graph->maxVertexCount = maxVertexCount;
+	graph = createLinkedGraph(maxVertexCount);
+	if (!graph)
+		return (NULL);
 	graph->graphType = GRAPH_DIRECTED;
-	graph->pVertex = calloc(maxVertexCount, sizeof(int));
-	if (!graph->pVertex)
-	{
-		free(graph);
-		return (NULL);
-	}
-	graph->ppAdjEdge = calloc(maxVertexCount, sizeof(LinkedList *));
-	if (!graph->ppAdjEdge)
-	{
-		free(graph->pVertex);
-		free(graph);
-		return (NULL);
-	}
-	for (int i = 0 ; i < maxVertexCount ; i++)
-	{
-		graph->ppAdjEdge[i] = createLinkedList();
-		if (!graph->ppAdjEdge[i])
-		{
-			for (; i >= 0 ; i--)
-				deleteLinkedList(graph->ppAdjEdge[i]);
-			free(graph->ppAdjEdge);
-			free(graph->pVertex);
-			free(graph);
-			return (NULL);
-		}
-	}
 	return (graph);
 }
 
