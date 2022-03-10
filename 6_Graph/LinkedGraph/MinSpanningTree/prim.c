@@ -9,7 +9,6 @@ static heapNode makeHeapNode(ListNode lNode, int from)
 	return node;
 }
 
-
 static int insertEdgeToHeap(heap **ppHeap, LinkedList *pLL, int from)
 {
 	ListNode *temp;
@@ -23,7 +22,7 @@ static int insertEdgeToHeap(heap **ppHeap, LinkedList *pLL, int from)
 	return (TRUE);
 }
 
-/* 0) LG와 같은 수의 vertex를 가지는 빈 그래프 생성(mst)
+/* 0) 원본 그래프(LG)와 동일한 수의 vertex를 가지는 빈 그래프 생성(mst)
  * 1) 0번 노드부터 시작하는 알고리즘으로, mst->pVertex[0] = USED;
  *    LG->ppAdjEdge[0]의 edgeinfo heap에 insert.
  * 2) heap 에서 edgeinfo 하나 가져옴.

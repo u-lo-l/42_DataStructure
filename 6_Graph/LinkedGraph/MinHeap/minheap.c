@@ -110,7 +110,6 @@ heapNode deleteMinHeapNode(heap *pHeap)
 	result = pHeap->rootNode[pHeap->currentElementCount];
 	pHeap->rootNode[pHeap->currentElementCount].weight = 0;
 	pHeap->currentElementCount--;
-	// display(pHeap);
 	int parent = 1;
 	int child = 2;
 	while (child <= pHeap->currentElementCount)
