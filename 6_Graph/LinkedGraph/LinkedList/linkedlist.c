@@ -126,25 +126,12 @@ ListNode *getLLElement(LinkedList* pList, int position)
 	return (temp);
 }
 
-void display(LinkedList *pList)
+void displayLinkedList(LinkedList *pList)
 {
 	ListNode *temp;
 
 	temp = pList->headerNode.pLink;
-	// if (!temp)
-	// {
-	// 	printf("\b\b\b\b\bEMPTY\n");
-	// 	return ;
-	// }
-	// while (temp)
-	// {
-	// 	printf("-(%2d)->\033[1;32m[% 2d|", temp->weight, temp->ID);
-	// 	if (temp->pLink == NULL)
-	// 		printf("\033[0m 0\033[1;32m]\033[0m");
-	// 	else
-	// 		printf("  ]\033[0m");
-	// 	temp = temp->pLink;
-	// }
+
 	while (1)
 	{
 		if (temp == NULL)

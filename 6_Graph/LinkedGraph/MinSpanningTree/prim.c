@@ -10,7 +10,7 @@ static heapNode makeHeapNode(ListNode lNode, int from)
 }
 
 
-int insertEdgeToHeap(heap **ppHeap, LinkedList *pLL, int from)
+static int insertEdgeToHeap(heap **ppHeap, LinkedList *pLL, int from)
 {
 	ListNode *temp;
 	
@@ -43,7 +43,7 @@ LinkedGraph *prim(LinkedGraph *LG)
 		return (0);
 	if (!isGraphConnected(LG))
 	{
-		printf("Graph has 'not connected' Vertex\n");
+		printf("Graph is not connected\n");
 		return (0);
 	}
 	mst = createLinkedGraph(LG->maxVertexCount);

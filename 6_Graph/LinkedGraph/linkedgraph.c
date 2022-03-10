@@ -200,19 +200,24 @@ int getGraphTypeLG(LinkedGraph* pGraph)
 void displayLinkedGraph(LinkedGraph* pGraph)
 {
 	if (!pGraph)	return;
+	printf("Graph Type : ");
 	if (pGraph->graphType == GRAPH_DIRECTED)
 		printf("DIRECTED_GRAPH\n");
 	else
 		printf("UNDIRECTED_GRAPH\n");
-	printf("max : %d, cur_E : %d, cur_V : %d\n", pGraph->maxVertexCount, pGraph->currentEdgeCount, pGraph->currentVertexCount);
-	printf("|");
+	printf("Number of vertices and edges : ");
+	printf("max_V : %d, cur_E : %d, cur_V : %d\n", pGraph->maxVertexCount, pGraph->currentEdgeCount, pGraph->currentVertexCount);
+	printf("\nVertex info\n");
+	printf("vertex num|");
 	for (int i = 0 ; i < pGraph->maxVertexCount; i++)
 		printf("% 2d|", i);
 	printf("\n");
-	printf("|");
+	printf("      used|");
 	for (int i = 0 ; i < pGraph->maxVertexCount; i++)
 		printf("% 2d|", pGraph->pVertex[i]);
 	printf("\n\n");
+	printf("head)   -(w1)->\033[0;32m[v1]\033[0m-(w2)->\033[0;32m[v2]\033[0m\n");
+	printf("-------------------------------\n");
 	for (int i = 0 ; i < pGraph->maxVertexCount; i++)
 	{
 		printf("%d) ", i);
@@ -221,7 +226,7 @@ void displayLinkedGraph(LinkedGraph* pGraph)
 		else
 		{
 			printf("     ");
-			display(pGraph->ppAdjEdge[i]);
+			displayLinkedList(pGraph->ppAdjEdge[i]);
 		}
 	}	
 }

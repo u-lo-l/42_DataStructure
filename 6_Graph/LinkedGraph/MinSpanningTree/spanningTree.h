@@ -6,8 +6,6 @@
 
 LinkedGraph	*kruskal(LinkedGraph *LG);
 
-LinkedGraph	*kruskal(LinkedGraph *LG);
-
 LinkedGraph *prim(LinkedGraph *LG);
 
 #endif

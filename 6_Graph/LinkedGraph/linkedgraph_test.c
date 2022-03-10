@@ -27,11 +27,11 @@ int main()
 	// printf("\033[1;48;5;197;38;5;16mKruskal Test BAD\033[0m\n");
 	// Kruskal_test_bad();
 	// printf("\n\n");
-	// printf("\033[1;48;5;117;38;5;16mPrim Test\033[0m\n");
-	// Prim_test();
+	printf("\033[1;48;5;117;38;5;16mPrim Test\033[0m\n");
+	Prim_test();
 	// printf("\n\n");
-	printf("Dijkstra test\n");
-	Dijkstra_test();
+	// printf("Dijkstra test\n");
+	// Dijkstra_test();
 
 	// printf("FLOYD test\n");
 	// Floyd_test();
@@ -43,7 +43,6 @@ void LinkedGraph_test()
 	LinkedGraph *graph;
 
 	graph = createLinkedGraph(8);
-	displayLinkedGraph(graph);
 	for (int i = 0 ; i < 8 ; i++)
 		addVertexLG(graph, i);
 	addEdgeLG(graph, 0, 2);
@@ -128,7 +127,6 @@ void Prim_test()
 	LinkedGraph *mainGraph = createLinkedGraph(6);
 	LinkedGraph *minSpanningTree;
 	printf("\033[0;34mInitGraph\n\033[0m");
-	displayLinkedGraph(mainGraph);
 	for (int i = 0 ; i < 6 ; i++)
 		addVertexLG(mainGraph, i);
 	addEdgewithWeightLG(mainGraph, 0, 1, 4);

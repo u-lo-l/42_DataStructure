@@ -23,7 +23,7 @@ ListNode	*getLLElement(LinkedList* pList, int position);
 int			getLinkedListLength(LinkedList* pList);
 void		clearLinkedList(LinkedList* pList);
 void		deleteLinkedList(LinkedList* pList);
-void		display(LinkedList *pList);
+void		displayLinkedList(LinkedList *pList);
 void		error(char *message);
 void		reverseLinkedList(LinkedList* pList);
 
