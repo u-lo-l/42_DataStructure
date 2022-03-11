@@ -32,19 +32,19 @@ int main()
 	// Kruskal_test_bad();
 	// printf("\n\n");
 
-	printf("\033[1;48;5;117;38;5;16mPrim Test\033[0m\n");
-	Prim_test_unconnected();
-	printf("\n\n");
-	Prim_test_directed();
-	printf("\n\n");
-	Prim_test();
-	printf("\n\n");
+	// printf("\033[1;48;5;117;38;5;16mPrim Test\033[0m\n");
+	// Prim_test_unconnected();
+	// printf("\n\n");
+	// Prim_test_directed();
+	// printf("\n\n");
+	// Prim_test();
+	// printf("\n\n");
 	
-	// printf("Dijkstra test\n");
-	// Dijkstra_test();
+	printf("Dijkstra test\n");
+	Dijkstra_test();
 
-	// printf("FLOYD test\n");
-	// Floyd_test();
+	printf("FLOYD test\n");
+	Floyd_test();
 
 }
 

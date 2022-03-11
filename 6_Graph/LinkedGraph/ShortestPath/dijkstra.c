@@ -35,6 +35,7 @@ int shortestDistanceVertex(int *visited, int *distance, int size)
 				dist[2] > dist[1] + 1에서 2로 가는 edge 의 weight 4 > 1 + 2 (o) dist[2] <- 3
 			dist : 0, 1, 3 , inf, inf. inf .......
 			vist : 1, 1, 0, 0, 0 .................
+ *		dist[w] > dist[v] + graph->ppList[v]->head->plink->plink..
  *  	라면 dist[w] = dist[v] + graph->ppList[v]->head->plink->plink..
 */
 int	*dijkstra(LinkedGraph *pGraph, int startVertex)
