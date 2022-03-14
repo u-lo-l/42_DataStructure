@@ -29,24 +29,22 @@ void swap(int *a, int *b)
 
 void quick(int arr[], int start, int end)
 {
-	int pivot;
 	int l;
 	int r;
 
 	l = start;
 	r = end;
-	pivot = end;
-	if (start > end)
+	if (start >= end)
 		return ;
 	while(l < r)
 	{
 		swap(arr + l, arr + r);
-		while (arr[l] <= arr[pivot] && l < end)
+		while (arr[l] <= arr[end] && l < end)
 			l++;
-		while (arr[r] >= arr[pivot] && r > l)
+		while (arr[r] >= arr[end] && r > l)
 			r--;
 	}
-	swap(arr + l, arr + pivot);
+	swap(arr + l, arr + end);
 	quick(arr, start, l - 1);
 	quick(arr, l + 1, end);
 }
