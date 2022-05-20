@@ -31,8 +31,8 @@ int main()
 		printf("->[%c]", Nodes[i]->data);
 	// printf("\n=====================BT=====================\n");
 	// test_BinTree(rootNode, Nodes);
-	// printf("\n=====================BST====================\n");
-	// test_BinSearchTree(rootNode, Nodes);
+	printf("\n=====================BST====================\n");
+	test_BinSearchTree(rootNode, Nodes);
 	printf("\n=====================AVL====================\n");
 	test_AVLTree(rootNode, Nodes);
 
@@ -80,7 +80,7 @@ void test_BinSearchTree(BinTreeNode *rootNode, BinTreeNode *Nodes[9])
 	addNodeBST(Tree, *Nodes[8]);
 	setTreeInfo(Tree);
 	showBinTreeStructure(Tree);
-	for (int i = 0 ; i < 9 ; i++)
+	for (int i = 0 ; i < 8 ; i++)
 	{
 		deleteNodeBST(Tree, Nodes[i]->data);
 		setTreeInfo(Tree);
