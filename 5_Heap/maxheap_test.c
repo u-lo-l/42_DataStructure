@@ -18,9 +18,12 @@ int main()
 		printf("[%2d] ", i);
 		if (i % 15 == 0) printf("\n");
 		insertMaxHeapData(heap, i);
+		printf("\n");
+		showHeapTree(heap);
 	}
 	printf("\n");
 	showHeapTree(heap);
+//	displayMaxHeap(heap);
 	deleteMaxHeap(&heap);
 	return 0;
 }
@@ -60,7 +63,7 @@ void showHeapTree(MaxHeap *H)
 		printf("=");
 	printf("\n");
 	
-	for (int i = 1 ; i < total ; i++)
+	for (int i = 1 ; i <= total ; i++)
 	{
 		if (i == power(2, level))
 			printf("\n\nlevel%2d ", level++ + 1);
