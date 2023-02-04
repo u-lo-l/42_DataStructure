@@ -1,5 +1,6 @@
 ```bash
 gcc maxheap.c maxheap_test.c
+./a.out
 ```
 ## Result
 ```
